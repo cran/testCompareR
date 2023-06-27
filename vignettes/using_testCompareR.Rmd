@@ -1,0 +1,231 @@
+---
+title: "Comparing binary diagnostic tests from paired data using testCompareR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{using_testCompareR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(testCompareR)
+```
+
+## Introduction
+
+Binary diagnostic tests are among the most commonly used tests in medicine and are used to rule in or out a certain condition. Commonly, this condition is disease status, but tests may also detect, for example, the presence of a bacteria or a virus, independent of any clinical manifestations. 
+
+Test metrics such as diagnostic accuracies, predictive values and likelihood ratios are useful tools to evaluate the efficacy of such tests in comparison to a gold standard, however, these statistics only provide a description of the quality of a test. Performing statistical inference to evaluate if one test is better than another while simultaneously referencing the gold standard is more complicated. Several authors have invested significant effort into developing statistical methods to perform such inference.
+
+Understanding and implementing methods described in the statistical literature is often far outside the comfort zone of clinicians, particularly those who are not routinely involved in academic research. 
+
+Here we demonstrate the implementation of the testCompareR package. 
+
+## Generating data
+
+The package comes with a data set derived from the Cystic Fibrosis Patient Registry. The data was originally presented in the paper 'Comparing the predictive values of diagnostic tests: sample size and analysis for paired study designs' by Moskowitz and Pepe. Two binary prognostic factors are evaluated as predictors of severe infection in cystic fibrosis patients. 
+
+```{r}
+dat <- cfpr
+```
+
+## Using the compareR function
+
+The testCompareR package is elegant in its simplicity. You can pass your data to the `compareR()` function as the only argument and the function outputs a list object containing the results of descriptive and inferential statistical tests.
+
+```{r}
+results <- compareR(dat)
+results
+```
+
+Individual results can be accessed via standard indexing.
+
+```{r}
+results$acc$accuracies # returns summary tables for diagnostic accuracies
+```
+
+The list output of the `compareR()` function is useful should you need to manipulate any of the individual outputs in subsequent calculations. However, should you wish to see an interpretation of your results, you can pass the `compareR` output to the `interpretR()` function. This provides the same results in a more human-readable format.
+
+```{r}
+interpretR(results)
+```
+
+And really, that's it! That is all you need to know to get your answers with `testCompareR`. 
+
+There is some additional functionality that might be useful to know about, though.
+
+### Flexible input
+
+The `compareR()` function will accept data as a data frame or matrix and there are a range of coding options for positive and negative results, detailed below. If you have been working across multiple sites and find that researchers have used different coding systems, no problem! As long as positive results are coded using something from the positive list and negative results with something in the negative list `compareR()` will handle that for you. No more manually re-coding your data!
+
+"What about those pesky trailing spaces?" I hear you ask. Of course, `compareR()` can handle that, too. "Case-sensitivity?" Taken care of.
+
+POSITIVE: positive, pos, p, yes, y, true, t, +, 1
+
+NEGATIVE: negative, neg, no, n, false, f, -, 0, 2
+
+```{r}
+# create data frame with varied coding
+df <- data.frame(
+  test1 = c(" positive ", "POS ", " n ", "N ", " 1 ", "+"),
+  test2 = c(" NEG ", " yes ", " negative", " Y ", "-", " 0 "),
+  gold = c(0, 1, 0, 1, 2, 1)
+)
+
+# recode the dataframe
+recoded <- testCompareR:::recoder(df)
+recoded
+```
+
+There are two things that `compareR()` cannot handle. 
+
+Firstly, it is imperative that the data structure provided has three columns and that those columns follow the pattern Test 1, Test 2, gold standard. If you place the gold standard at any index other than `your_data[,3]` then `compareR()` may return a result that looks sensible but does not answer the question you wanted to ask. 
+
+Finally, `compareR()` cannot handle missing data. Removing missing data is an option, but consider why the data is missing and don't omit this from any write-up of the results. Alternatively, if the data are missing at random, you could consider the use of imputation methods to replace missing data. If the data are not missing at random then imputation becomes vastly more complex and you should probably seek expert advice. 
+
+### Variable alpha
+
+If you're using `testCompareR` because you're not statistically savvy and you want a nice function to do it all for you then you should probably just leave alpha alone. 
+If you have a good reason, or you're just messing around, feel free to change it to whatever you'd like, though.
+
+```{r}
+# simulate data
+test1 <- c(rep(1, 300), rep(0, 100), rep(1, 65), rep(0, 135))
+test2 <- c(rep(1, 280), rep(0, 120), rep(1, 55), rep(0, 145))
+gold <- c(rep(1, 400), rep(0, 200))
+
+df <- data.frame(test1, test2, gold)
+
+# test with alpha = 0.5
+result <- compareR(df, alpha = 0.5)
+
+# all results are significant
+interpretR(result)
+```
+
+### Margins
+
+Contingency tables are included in the readout from `compareR()` or `interpretR`. Some people like to see the summed totals for columns and rows. If you're one of those people, then set `margins = TRUE`.
+
+```{r}
+# simulate data
+test1 <- c(rep(1, 300), rep(0, 100), rep(1, 65), rep(0, 135))
+test2 <- c(rep(1, 280), rep(0, 120), rep(1, 55), rep(0, 145))
+gold <- c(rep(1, 400), rep(0, 200))
+
+df <- data.frame(test1, test2, gold)
+
+# test with alpha = 0.5
+result <- compareR(df, margins = TRUE)
+
+# contingency tables have margins
+result$cont
+```
+### Multiple testing
+
+By default `compareR()` runs a minimum of three hypothesis tests and it can perform up to nine. This is accounted for using adjusted p-values according to the Holm method. If you'd prefer to use a different method, that's no problem. Just set the `multi_corr` parameter to any of the methods which are handled by the base R function `p.adjust()`.
+
+```{r}
+# display p.adjust.methods
+p.adjust.methods
+
+# simulate data
+test1 <- c(rep(1, 300), rep(0, 100), rep(1, 65), rep(0, 135))
+test2 <- c(rep(1, 280), rep(0, 120), rep(1, 55), rep(0, 145))
+gold <- c(rep(1, 400), rep(0, 200))
+
+df <- data.frame(test1, test2, gold)
+
+# test with different multiple comparison methods
+result1 <- compareR(df, multi_corr = "holm")
+result2 <- compareR(df, multi_corr = "bonf")
+
+# the more restrictive Bonferroni method returns higher adjusted p values
+result1$pv$glob.p.adj < result2$pv$glob.p.adj
+```
+
+### Continuity correction
+
+In certain circumstances `compareR()` uses McNemar's test for testing differences in diagnostic accuracies. This test is routinely performed with continuity correction. If you wish to perform it without continuity correction then set `cc = FALSE`. If you aren't sure whether to run the test with or without continuity correction, then stick to the default parameters.
+
+```{r}
+# simulate data
+test1 <- c(rep(1, 6), rep(0, 2), rep(1, 14), rep(0, 76))
+test2 <- c(rep(1, 1), rep(0, 7), rep(1, 2), rep(0, 88))
+gold <- c(rep(1, 8), rep(0, 90))
+
+df <- data.frame(test1, test2, gold)
+
+# run compareR without continuity correction
+result <- compareR(df, cc = FALSE)
+result$acc
+```
+
+### Decimal places
+
+You can change the number of decimal places displayed in the summary tables which are output by both the `compareR()` and `interpretR()` functions with the `dp` parameter. This parameter does not affect the number of decimal places displayed for p values or test statistics.
+
+```{r}
+# simulate data
+test1 <- c(rep(1, 317), rep(0, 83), rep(1, 68), rep(0, 132))
+test2 <- c(rep(1, 281), rep(0, 119), rep(1, 51), rep(0, 149))
+gold <- c(rep(1, 390), rep(0, 210))
+
+df <- data.frame(test1, test2, gold)
+
+# test with different multiple comparison methods
+result <- compareR(df, dp = 3)
+
+# the values in the summary tables are displayed to 3 decimal places
+result$acc$accuracies
+```
+
+### Choosing your tests
+
+Another important aspect of the `testCompareR` package is the ability to control your study design. For example, if you have made the a priori decision that you are only interested in the predictive values, is it really necessary to control for multiple tests for diagnostic accuracies and likelihood ratios? Of course not!
+
+You can ask `compareR()` not to display the results by setting the parameters for any pairs of tests which aren't of interest to you to `FALSE`. The parameters are as follows: `sesp` for diagnostic accuracies; `ppvnpv` for predictive values; `plrnlr` for likelihood ratios.
+
+```{r}
+# simulate data
+test1 <- c(rep(1, 317), rep(0, 83), rep(1, 68), rep(0, 132))
+test2 <- c(rep(1, 281), rep(0, 119), rep(1, 51), rep(0, 149))
+gold <- c(rep(1, 390), rep(0, 210))
+
+df <- data.frame(test1, test2, gold)
+
+# only display results for predictive values
+result <- compareR(df, sesp = FALSE, plrnlr = FALSE)
+result
+```
+
+### Test names
+
+If you want specific test names to be included in the output for `compareR()` then you can set the `test.names` parameter. This parameter accepts a character vector of length 2. 
+
+
+```{r}
+# simulate data
+test1 <- c(rep(1, 317), rep(0, 83), rep(1, 68), rep(0, 132))
+test2 <- c(rep(1, 281), rep(0, 119), rep(1, 51), rep(0, 149))
+gold <- c(rep(1, 390), rep(0, 210))
+
+df <- data.frame(test1, test2, gold)
+
+# only display results for predictive values
+result <- compareR(df, test.names = c("POCT", "Lab Blood"))
+result$acc$accuracies
+```
+
+## Conclusion
+
+You made it to the end! That pretty well summarises everything you need to know about the package. Hopefully it will save you a lot of time when comparing two binary diagnostic tests. 
+
+Please get in touch with any refinements, comments or bugs. The source code is available on Github if you think you can improve it yourself!
