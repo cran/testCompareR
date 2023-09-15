@@ -928,17 +928,17 @@ test_that("output.acc function tests", {
   expect_equal(output1$glob.p, 1.389053e-07, tolerance = 1e-06)
   expect_equal(output1$ind.t1, 21.05263, tolerance = 1e-06)
   expect_equal(output1$ind.t2, 10.52632, tolerance = 1e-06)
-  expect_equal(output1$ind.p1, 0, tolerance = 1e-06)
-  expect_equal(output1$ind.p2, 0, tolerance = 1e-06)
+  expect_equal(output1$ind.p1, 4.468387e-06, tolerance = 1e-06)
+  expect_equal(output1$ind.p2, 0.001176866, tolerance = 1e-06)
 
   expect_equal(output1$Mcc1, 18.05, tolerance = 1e-06)
   expect_equal(output1$Mcc2, 8.1, tolerance = 1e-06)
-  expect_equal(output1$pval3a, 0, tolerance = 1e-06)
-  expect_equal(output1$pval4a, 4.440892e-16, tolerance = 1e-06)
+  expect_equal(output1$pval3a, 2.151786e-05, tolerance = 1e-06)
+  expect_equal(output1$pval4a, 0.004426526, tolerance = 1e-06)
   expect_equal(output1$M1, 20, tolerance = 1e-06)
   expect_equal(output1$M2, 10, tolerance = 1e-06)
-  expect_equal(output1$pval3b, 0, tolerance = 1e-06)
-  expect_equal(output1$pval4b, 0, tolerance = 1e-06)
+  expect_equal(output1$pval3b, 7.744216e-06, tolerance = 1e-06)
+  expect_equal(output1$pval4b, 0.001565402, tolerance = 1e-06)
 
   # Test 2: Incorrect list object without class
 

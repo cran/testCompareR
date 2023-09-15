@@ -1,3 +1,18 @@
+# testCompareR 1.0.2
+
+* Finalised corrections to p value calculations and updated package tests
+* Changed license to GPL3 to conform with CRAN
+
+---
+
+# testCompareR 1.0.1
+
+* Updated Roldán-Nofuentes' role to author
+* Updated p value calculations with correct formula
+* Updated license to GPL3+ (written permission from JARN)
+
+---
+
 # testCompareR 1.0.0
 
 * Submitted to CRAN
