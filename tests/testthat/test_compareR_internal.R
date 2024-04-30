@@ -371,11 +371,17 @@ test_that("disp.cont function tests", {
   expect_type(disp.cont(results2)[[2]], "integer")
   expect_true(all(disp.cont(results2)[[1]] >= 0))
   expect_true(all(disp.cont(results2)[[2]] >= 0))
-  expect_equal(disp.cont(results2)[[1]], matrix(c(1, 1, 1, 1), ncol = 2),
+  expect_equal(disp.cont(results2)[[1]], matrix(c(2, 2, 2, 2), ncol = 2),
     ignore_attr = TRUE
   )
-  expect_equal(disp.cont(results2)[[2]], matrix(c(1, 1, 1, 1), ncol = 2),
+  expect_equal(disp.cont(results2)[[2]], matrix(c(2, 2, 2, 2), ncol = 2),
     ignore_attr = TRUE
+  )
+  expect_equal(disp.cont(results2)[[3]], matrix(c(1, 1, 1, 1), ncol = 2),
+               ignore_attr = TRUE
+  )
+  expect_equal(disp.cont(results2)[[4]], matrix(c(1, 1, 1, 1), ncol = 2),
+               ignore_attr = TRUE
   )
 
   # Test 4: Correct values.2test without margins
@@ -386,12 +392,20 @@ test_that("disp.cont function tests", {
   expect_true(all(disp.cont(results2, margins = TRUE)[[1]] >= 0))
   expect_true(all(disp.cont(results2, margins = TRUE)[[2]] >= 0))
   expect_equal(disp.cont(results2, margins = TRUE)[[1]],
-    addmargins(matrix(c(1, 1, 1, 1), ncol = 2)),
+    addmargins(matrix(c(2, 2, 2, 2), ncol = 2)),
     ignore_attr = TRUE
   )
   expect_equal(disp.cont(results2, margins = TRUE)[[2]],
-    addmargins(matrix(c(1, 1, 1, 1), ncol = 2)),
+    addmargins(matrix(c(2, 2, 2, 2), ncol = 2)),
     ignore_attr = TRUE
+  )
+  expect_equal(disp.cont(results2, margins = TRUE)[[3]],
+               addmargins(matrix(c(1, 1, 1, 1), ncol = 2)),
+               ignore_attr = TRUE
+  )
+  expect_equal(disp.cont(results2, margins = TRUE)[[4]],
+               addmargins(matrix(c(1, 1, 1, 1), ncol = 2)),
+               ignore_attr = TRUE
   )
 
   # Test 5: Incorrect list object without class
@@ -668,13 +682,13 @@ test_that("conf.acc function tests", {
 
   expect_equal(output1$se$est, 0.75, tolerance = 1e-06)
   expect_equal(output1$se$SE, 0.02165064, tolerance = 1e-06)
-  expect_equal(output1$se$ci.lower, 0.713951, tolerance = 1e-06)
-  expect_equal(output1$se$ci.upper, 0.7830987, tolerance = 1e-06)
+  expect_equal(output1$se$ci.lower, 0.7054952, tolerance = 1e-06)
+  expect_equal(output1$se$ci.upper, 0.7900933, tolerance = 1e-06)
 
   expect_equal(output1$sp$est, 0.725, tolerance = 1e-06)
   expect_equal(output1$sp$SE, 0.03157333, tolerance = 1e-06)
-  expect_equal(output1$sp$ci.lower, 0.6880295, tolerance = 1e-06)
-  expect_equal(output1$sp$ci.upper, 0.7593152, tolerance = 1e-06)
+  expect_equal(output1$sp$ci.lower, 0.6596239, tolerance = 1e-06)
+  expect_equal(output1$sp$ci.upper, 0.7825103, tolerance = 1e-06)
 })
 
 #-------------------------------------------------------------------------------

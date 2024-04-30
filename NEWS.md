@@ -1,3 +1,11 @@
+# testCompareR 1.0.3
+
+* Fixed bugs arising from amended p value calculations
+* Updated README.md
+* Updated the Using testCompareR vignette
+
+---
+
 # testCompareR 1.0.2
 
 * Finalised corrections to p value calculations and updated package tests

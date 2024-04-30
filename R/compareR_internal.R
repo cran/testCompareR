@@ -363,13 +363,36 @@ disp.cont <- function(vals, margins = FALSE, ...) {
       "Test 2" = c("Positive", "Negative")
     )
 
+    mat3 <- matrix(c(vals$s11 + vals$s10,
+                     vals$r11 + vals$r10,
+                     vals$s01 + vals$s00,
+                     vals$r01 + vals$r00),
+                   nrow = 2)
+    dimnames(mat3) <- list(
+      "Gold standard" = c("Positive", "Negative"),
+      "Test 1" = c("Positive", "Negative")
+    )
+
+    mat4 <- matrix(c(vals$s11 + vals$s01,
+                     vals$r11 + vals$r01,
+                     vals$s10 + vals$s00,
+                     vals$r10 + vals$r00),
+                   nrow = 2)
+    dimnames(mat4) <- list(
+      "Gold standard" = c("Positive", "Negative"),
+      "Test 2" = c("Positive", "Negative")
+    )
+
     if (margins == TRUE) {
       mat1 <- addmargins(mat1, ...)
       mat2 <- addmargins(mat2, ...)
+      mat3 <- addmargins(mat3, ...)
+      mat4 <- addmargins(mat4, ...)
     }
 
-    mat <- list(mat1, mat2)
-    names(mat) <- c("True Status: POS", "True Status: NEG")
+    mat <- list(mat3, mat4, mat1, mat2)
+    names(mat) <- c("Gold standard vs. Test 1", "Gold standard vs. Test 2",
+                    "True Status: POS", "True Status: NEG")
 
     return(mat)
   }
@@ -435,6 +458,9 @@ yu.int <- function(n, z, est) {
 #' with class `vals.1test` or `vals.2test`. These objects are output by the
 #' `values.1test()` and `values.2test()` function.
 #' @param alpha An alpha value. Defaults to 0.05.
+#' @param stats A character string, either "contemporary" or "classic".
+#' Indicates whether function should use contemporary or classic statistical
+#' methods.
 #' @param ... Rarely needs to be used. Allows additional arguments to be passed
 #' to internal functions.
 #'
@@ -445,9 +471,9 @@ yu.int <- function(n, z, est) {
 #'
 #' @noRd
 #'
-#' @importFrom stats "qnorm"
+#' @importFrom stats "qnorm" "binom.test"
 
-conf.prev <- function(vals, alpha = 0.05, ...) {
+conf.prev <- function(vals, alpha = 0.05, stats = "contemporary", ...) {
   ## CHECK ARGUMENTS
 
   if (!(class(vals) %in% c("vals.1test", "vals.2test"))) {
@@ -468,14 +494,28 @@ conf.prev <- function(vals, alpha = 0.05, ...) {
 
   Varprev <- vals$prev * vals$qrev / vals$n
 
-  yu <- yu.int(vals$n, z, vals$prev)
+  if (stats == "contemporary") {
+    yu <- yu.int(vals$n, z, vals$prev)
 
-  ci.prev <- list(
-    est = vals$prev,
-    SE = sqrt(Varprev),
-    ci.lower = yu$lower,
-    ci.upper = yu$upper
-  )
+    ci.prev <- list(
+      est = vals$prev,
+      SE = sqrt(Varprev),
+      ci.lower = yu$lower,
+      ci.upper = yu$upper
+    )
+  } else if (stats == "classic") {
+    cp <- binom.test(c(vals$ss, vals$rr), vals$prev)$conf.int
+
+    ci.prev <- list(
+      est = vals$prev,
+      SE = sqrt(Varprev),
+      ci.lower = cp[1],
+      ci.upper = cp[2]
+    )
+  } else {
+    stop("stats argument must be either \"contemporary\" or \"classic\"")
+  }
+
 
   class(ci.prev) <- "prev"
   return(ci.prev)
@@ -490,6 +530,9 @@ conf.prev <- function(vals, alpha = 0.05, ...) {
 #' with class `vals.1test` or `vals.2test`. These objects are output by the
 #' `values.1test()` and `values.2test()` function.
 #' @param alpha An alpha value. Defaults to 0.05.
+#' @param stats A character string, either "contemporary" or "classic".
+#' Indicates whether function should use contemporary or classic statistical
+#' methods.
 #' @param ... Rarely needs to be used. Allows additional arguments to be passed
 #' to internal functions.
 #'
@@ -500,9 +543,9 @@ conf.prev <- function(vals, alpha = 0.05, ...) {
 #'
 #' @noRd
 #'
-#' @importFrom stats "qnorm"
+#' @importFrom stats "qnorm" "binom.test"
 
-conf.acc <- function(vals, alpha = 0.05, ...) {
+conf.acc <- function(vals, alpha = 0.05, stats = "contemporary", ...) {
   ## CHECK ARGUMENTS
 
   if (!(class(vals) %in% c("vals.1test", "vals.2test"))) {
@@ -518,59 +561,124 @@ conf.acc <- function(vals, alpha = 0.05, ...) {
   z <- qnorm(1 - alpha / 2, ...)
 
   if (inherits(vals, "vals.2test")) {
-    yu_Se1 <- yu.int(vals$ss, z, vals$Se1)
-    yu_Se2 <- yu.int(vals$ss, z, vals$Se2)
-    yu_Sp1 <- yu.int(vals$rr, z, vals$Sp1)
-    yu_Sp2 <- yu.int(vals$rr, z, vals$Sp2)
 
-    ci.acc <- list(
-      test1.se = list(
-        est = vals$Se1,
-        SE = sqrt(vals$VarSe1),
-        ci.lower = yu_Se1$lower,
-        ci.upper = yu_Se1$upper
-      ),
-      test2.se = list(
-        est = vals$Se2,
-        SE = sqrt(vals$VarSe2),
-        ci.lower = yu_Se2$lower,
-        ci.upper = yu_Se2$upper
-      ),
-      test1.sp = list(
-        est = vals$Sp1,
-        SE = sqrt(vals$VarSp1),
-        ci.lower = yu_Sp1$lower,
-        ci.upper = yu_Sp1$upper
-      ),
-      test2.sp = list(
-        est = vals$Sp2,
-        SE = sqrt(vals$VarSp2),
-        ci.lower = yu_Sp2$lower,
-        ci.upper = yu_Sp2$upper
+    if (stats == "contemporary") {
+      yu_Se1 <- yu.int(vals$ss, z, vals$Se1)
+      yu_Se2 <- yu.int(vals$ss, z, vals$Se2)
+      yu_Sp1 <- yu.int(vals$rr, z, vals$Sp1)
+      yu_Sp2 <- yu.int(vals$rr, z, vals$Sp2)
+
+      ci.acc <- list(
+        test1.se = list(
+          est = vals$Se1,
+          SE = sqrt(vals$VarSe1),
+          ci.lower = yu_Se1$lower,
+          ci.upper = yu_Se1$upper
+        ),
+        test2.se = list(
+          est = vals$Se2,
+          SE = sqrt(vals$VarSe2),
+          ci.lower = yu_Se2$lower,
+          ci.upper = yu_Se2$upper
+        ),
+        test1.sp = list(
+          est = vals$Sp1,
+          SE = sqrt(vals$VarSp1),
+          ci.lower = yu_Sp1$lower,
+          ci.upper = yu_Sp1$upper
+        ),
+        test2.sp = list(
+          est = vals$Sp2,
+          SE = sqrt(vals$VarSp2),
+          ci.lower = yu_Sp2$lower,
+          ci.upper = yu_Sp2$upper
+        )
       )
-    )
+    } else if (stats == "classic") {
+      cp_Se1 <- binom.test(c(vals$s11 + vals$s10,
+                             vals$s01 + vals$s00), vals$Se1)$conf.int
+      cp_Se2 <- binom.test(c(vals$s11 + vals$s01,
+                             vals$s10 + vals$s00), vals$Se2)$conf.int
+      cp_Sp1 <- binom.test(c(vals$r00 + vals$r01,
+                             vals$r10 + vals$r11), vals$Sp1)$conf.int
+      cp_Sp2 <- binom.test(c(vals$r00 + vals$r10,
+                             vals$r01 + vals$r11), vals$Sp2)$conf.int
+
+      ci.acc <- list(
+        test1.se = list(
+          est = vals$Se1,
+          SE = sqrt(vals$VarSe1),
+          ci.lower = cp_Se1[1],
+          ci.upper = cp_Se1[2]
+        ),
+        test2.se = list(
+          est = vals$Se2,
+          SE = sqrt(vals$VarSe2),
+          ci.lower = cp_Se2[1],
+          ci.upper = cp_Se2[2]
+        ),
+        test1.sp = list(
+          est = vals$Sp1,
+          SE = sqrt(vals$VarSp1),
+          ci.lower = cp_Sp1[1],
+          ci.upper = cp_Sp1[2]
+        ),
+        test2.sp = list(
+          est = vals$Sp2,
+          SE = sqrt(vals$VarSp2),
+          ci.lower = cp_Sp2[1],
+          ci.upper = cp_Sp2[2]
+        )
+      )
+    } else {
+      stop("stats argument must be either \"contemporary\" or \"classic\"")
+    }
 
     class(ci.acc) <- "conf.2t"
 
     return(ci.acc)
-  } else if (inherits(vals, "vals.1test")) {
-    yu_Se1 <- yu.int(vals$n, z, vals$Se1)
-    yu_Sp1 <- yu.int(vals$n, z, vals$Sp1)
 
-    ci.acc <- list(
-      se = list(
-        est = vals$Se1,
-        SE = sqrt(vals$VarSe1),
-        ci.lower = yu_Se1$lower,
-        ci.upper = yu_Se1$upper
-      ),
-      sp = list(
-        est = vals$Sp1,
-        SE = sqrt(vals$VarSp1),
-        ci.lower = yu_Sp1$lower,
-        ci.upper = yu_Sp1$upper
+  } else if (inherits(vals, "vals.1test")) {
+
+    if (stats == "contemporary") {
+      yu_Se1 <- yu.int(vals$ss, z, vals$Se1) # bug in original? didn't give same answer as above
+      yu_Sp1 <- yu.int(vals$rr, z, vals$Sp1) # bug in original? didn't give same answer as above
+
+      ci.acc <- list(
+        se = list(
+          est = vals$Se1,
+          SE = sqrt(vals$VarSe1),
+          ci.lower = yu_Se1$lower,
+          ci.upper = yu_Se1$upper
+        ),
+        sp = list(
+          est = vals$Sp1,
+          SE = sqrt(vals$VarSp1),
+          ci.lower = yu_Sp1$lower,
+          ci.upper = yu_Sp1$upper
+        )
       )
-    )
+    } else if (stats == "classic") {
+      cp_Se1 <- binom.test(c(vals$s1, vals$s0), vals$Se1)$conf.int
+      cp_Sp1 <- binom.test(c(vals$r0, vals$r1), vals$Se1)$conf.int
+
+      ci.acc <- list(
+        se = list(
+          est = vals$Se1,
+          SE = sqrt(vals$VarSe1),
+          ci.lower = cp_Se1[1],
+          ci.upper = cp_Se1[2]
+        ),
+        sp = list(
+          est = vals$Sp1,
+          SE = sqrt(vals$VarSp1),
+          ci.lower = cp_Sp1[1],
+          ci.upper = cp_Sp1[2]
+        )
+      )
+    } else {
+      stop("stats argument must be either \"contemporary\" or \"classic\"")
+    }
 
     class(ci.acc) <- "conf.1t"
 
@@ -587,6 +695,9 @@ conf.acc <- function(vals, alpha = 0.05, ...) {
 #' with class `vals.1test` or `vals.2test`. These objects are output by the
 #' `values.1test()` and `values.2test()` function.
 #' @param alpha An alpha value. Defaults to 0.05.
+#' @param stats A character string, either "contemporary" or "classic".
+#' Indicates whether function should use contemporary or classic statistical
+#' methods.
 #' @param ... Rarely needs to be used. Allows additional arguments to be passed
 #' to internal functions.
 #'
@@ -597,9 +708,9 @@ conf.acc <- function(vals, alpha = 0.05, ...) {
 #'
 #' @noRd
 #'
-#' @importFrom stats "qnorm"
+#' @importFrom stats "qnorm" "binom.test"
 
-conf.pv <- function(vals, alpha = 0.05, ...) {
+conf.pv <- function(vals, alpha = 0.05, stats = "contemporary", ...) {
   ## CHECK ARGUMENTS
 
   if (!(class(vals) %in% c("vals.1test", "vals.2test"))) {
@@ -615,59 +726,123 @@ conf.pv <- function(vals, alpha = 0.05, ...) {
   z <- qnorm(1 - alpha / 2, ...)
 
   if (inherits(vals, "vals.2test")) {
-    yu_PPV1 <- yu.int(vals$n11 + vals$n10, z, vals$PPV1)
-    yu_PPV2 <- yu.int(vals$n11 + vals$n01, z, vals$PPV2)
-    yu_NPV1 <- yu.int(vals$n01 + vals$n00, z, vals$NPV1)
-    yu_NPV2 <- yu.int(vals$n10 + vals$n00, z, vals$NPV2)
 
-    ci.pv <- list(
-      test1.ppv = list(
-        est = vals$PPV1,
-        SE = sqrt(vals$VarPPV1),
-        ci.lower = yu_PPV1$lower,
-        ci.upper = yu_PPV1$upper
-      ),
-      test2.ppv = list(
-        est = vals$PPV2,
-        SE = sqrt(vals$VarPPV2),
-        ci.lower = yu_PPV2$lower,
-        ci.upper = yu_PPV2$upper
-      ),
-      test1.npv = list(
-        est = vals$NPV1,
-        SE = sqrt(vals$VarNPV1),
-        ci.lower = yu_NPV1$lower,
-        ci.upper = yu_NPV1$upper
-      ),
-      test2.npv = list(
-        est = vals$NPV2,
-        SE = sqrt(vals$VarNPV2),
-        ci.lower = yu_NPV2$lower,
-        ci.upper = yu_NPV2$upper
+    if (stats == "contemporary") {
+      yu_PPV1 <- yu.int(vals$n11 + vals$n10, z, vals$PPV1)
+      yu_PPV2 <- yu.int(vals$n11 + vals$n01, z, vals$PPV2)
+      yu_NPV1 <- yu.int(vals$n01 + vals$n00, z, vals$NPV1)
+      yu_NPV2 <- yu.int(vals$n10 + vals$n00, z, vals$NPV2)
+
+      ci.pv <- list(
+        test1.ppv = list(
+          est = vals$PPV1,
+          SE = sqrt(vals$VarPPV1),
+          ci.lower = yu_PPV1$lower,
+          ci.upper = yu_PPV1$upper
+        ),
+        test2.ppv = list(
+          est = vals$PPV2,
+          SE = sqrt(vals$VarPPV2),
+          ci.lower = yu_PPV2$lower,
+          ci.upper = yu_PPV2$upper
+        ),
+        test1.npv = list(
+          est = vals$NPV1,
+          SE = sqrt(vals$VarNPV1),
+          ci.lower = yu_NPV1$lower,
+          ci.upper = yu_NPV1$upper
+        ),
+        test2.npv = list(
+          est = vals$NPV2,
+          SE = sqrt(vals$VarNPV2),
+          ci.lower = yu_NPV2$lower,
+          ci.upper = yu_NPV2$upper
+        )
       )
-    )
+    } else if (stats == "classic") {
+      cp_PPV1 <- binom.test(c(vals$s11 + vals$s10,
+                              vals$r10 + vals$r11), vals$PPV1)$conf.int
+      cp_PPV2 <- binom.test(c(vals$s11 + vals$s01,
+                              vals$r01 + vals$r11), vals$PPV2)$conf.int
+      cp_NPV1 <- binom.test(c(vals$r00 + vals$r01,
+                              vals$s01 + vals$s00), vals$NPV1)$conf.int
+      cp_NPV2 <- binom.test(c(vals$r00 + vals$r10,
+                              vals$s10 + vals$s00), vals$NPV2)$conf.int
+
+      ci.pv <- list(
+        test1.ppv = list(
+          est = vals$PPV1,
+          SE = sqrt(vals$VarPPV1),
+          ci.lower = cp_PPV1[1],
+          ci.upper = cp_PPV1[2]
+        ),
+        test2.ppv = list(
+          est = vals$PPV2,
+          SE = sqrt(vals$VarPPV2),
+          ci.lower = cp_PPV2[1],
+          ci.upper = cp_PPV2[2]
+        ),
+        test1.npv = list(
+          est = vals$NPV1,
+          SE = sqrt(vals$VarNPV1),
+          ci.lower = cp_NPV1[1],
+          ci.upper = cp_NPV1[2]
+        ),
+        test2.npv = list(
+          est = vals$NPV2,
+          SE = sqrt(vals$VarNPV2),
+          ci.lower = cp_NPV2[1],
+          ci.upper = cp_NPV2[2]
+        )
+      )
+    } else {
+      stop("stats argument must be either \"contemporary\" or \"classic\"")
+    }
 
     class(ci.pv) <- "conf.2t"
 
     return(ci.pv)
   } else if (inherits(vals, "vals.1test")) {
-    yu_PPV1 <- yu.int(vals$n, z, vals$PPV1)
-    yu_NPV1 <- yu.int(vals$n, z, vals$NPV1)
 
-    ci.pv <- list(
-      PPV = list(
-        est = vals$PPV1,
-        SE = sqrt(vals$VarPPV1),
-        ci.lower = yu_PPV1$lower,
-        ci.upper = yu_PPV1$upper
-      ),
-      NPV = list(
-        est = vals$NPV1,
-        SE = sqrt(vals$VarNPV1),
-        ci.lower = yu_NPV1$lower,
-        ci.upper = yu_NPV1$upper
+    if (stats == "contemporary") {
+      yu_PPV1 <- yu.int(vals$n, z, vals$PPV1)
+      yu_NPV1 <- yu.int(vals$n, z, vals$NPV1)
+
+      ci.pv <- list(
+        PPV = list(
+          est = vals$PPV1,
+          SE = sqrt(vals$VarPPV1),
+          ci.lower = yu_PPV1$lower,
+          ci.upper = yu_PPV1$upper
+        ),
+        NPV = list(
+          est = vals$NPV1,
+          SE = sqrt(vals$VarNPV1),
+          ci.lower = yu_NPV1$lower,
+          ci.upper = yu_NPV1$upper
+        )
       )
-    )
+    } else if (stats == "classic") {
+      cp_PPV1 <- binom.test(c(vals$s1, vals$r1), vals$PPV1)$conf.int
+      cp_NPV1 <- binom.test(c(vals$r0, vals$s0), vals$NPV1)$conf.int
+
+      ci.pv <- list(
+        PPV = list(
+          est = vals$PPV1,
+          SE = sqrt(vals$VarPPV1),
+          ci.lower = cp_PPV1[1],
+          ci.upper = cp_PPV1[2]
+        ),
+        NPV = list(
+          est = vals$NPV1,
+          SE = sqrt(vals$VarNPV1),
+          ci.lower = cp_NPV1[1],
+          ci.upper = cp_NPV1[2]
+        )
+      )
+    } else {
+      stop("stats argument must be either \"contemporary\" or \"classic\"")
+    }
 
     class(ci.pv) <- "conf.1t"
 

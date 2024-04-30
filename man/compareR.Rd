@@ -14,6 +14,7 @@ compareR(
   sesp = TRUE,
   ppvnpv = TRUE,
   plrnlr = TRUE,
+  conf.int = "contemporary",
   test.names = c("Test 1", "Test 2"),
   ...
 )
@@ -44,6 +45,10 @@ positive and negative predictive values.}
 \item{plrnlr}{A Boolean value indicating whether output should include
 positive and negative likelihood ratios.}
 
+\item{conf.int}{A character string, either "contemporary" or "classic".
+Indicates whether function should use contemporary or classic statistical
+methods to calculate confidence intervals.}
+
 \item{test.names}{A vector of length two giving the names of the two
 different binary diagnostic tests. This argument is not relevant when testing
 a single binary diagnostic test.}
@@ -63,7 +68,8 @@ multiple comparisons using methods in `p.adjust()`.
 \details{
 Confidence intervals for prevalence, diagnostic accuracies and predictive
 values are calculated using the interval for binomial proportions described
-by Yu et al. (2014).
+by Yu et al. (2014) by default. Setting conf.int = "classic" uses the
+Clopper-Pearson method.
 Confidence intervals for likelihood ratios are calculated using the methods
 recommended by Martín-Andrés and Álvarez-Hernández (2014).
 Hypothesis testing for diagnostic accuracies uses different methods depending
@@ -96,6 +102,9 @@ compareR(df,
 \references{
 Yu, Guo & Xu (2014) JSCS. 2014; 84:5,1022-1038
 \doi{10.1080/00949655.2012.738211}
+
+Clopper & Pearson (1934) Biometrika. 1934; 26,404-413
+\doi{10.2307/2331986}
 
 Martín Andrés & Álvarez Hernández (2014) Stat Comput. 2014; 24,65–75
 \doi{10.1007/s11222-012-9353-5}

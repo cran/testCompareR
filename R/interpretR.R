@@ -70,6 +70,14 @@ interpretR <- function(result) {
 
     print(result$cont$`True Status: NEG`)
 
+    cat("\nGold standard vs. Test 1\n")
+
+    print(result$cont$`Gold standard vs. Test 1`)
+
+    cat("\nGold standard vs. Test 2\n")
+
+    print(result$cont$`Gold standard vs. Test 2`)
+
     ## prevalence
 
     cat("\n--------------------------------------------------------------------------------")
@@ -103,7 +111,7 @@ interpretR <- function(result) {
         }
       }
       if (is.na(result$acc$glob.p.adj) | result$acc$glob.p.adj < alpha) {
-        cat("\n\nInvestigating cause(s) of significance\n\n")
+        cat("\n\nInvestigating individual differences\n\n")
         cat("Null Hypothesis 1: Se1 = Se2\n")
         cat("Test statistic: ", result$acc$sens.test.stat, " Adjusted p value: ", result$acc$sens.p.adj)
         if (!is.na(result$acc$sens.p.adj) && result$acc$sens.p.adj < alpha) {
@@ -150,7 +158,7 @@ interpretR <- function(result) {
         }
       }
       if (is.na(result$pv$glob.p.adj) | result$pv$glob.p.adj < alpha) {
-        cat("\n\nInvestigating cause(s) of significance\n\n")
+        cat("\n\nInvestigating individual differences\n\n")
         cat("Null Hypothesis 1: PPV1 = PPV2\n")
         cat("Test statistic: ", result$pv$ppv.test.stat, " Adjusted p value: ", result$pv$ppv.p.adj)
         if (!is.na(result$pv$ppv.p.adj) && result$pv$ppv.p.adj < alpha) {
@@ -197,7 +205,7 @@ interpretR <- function(result) {
         }
       }
       if (is.na(result$lr$glob.p.adj) | result$lr$glob.p.adj < alpha) {
-        cat("\n\nInvestigating cause(s) of significance\n\n")
+        cat("\n\nInvestigating individual differences\n\n")
         cat("Null Hypothesis 1: PLR1 = PLR2\n")
         cat("Test statistic: ", result$lr$plr.test.stat, " Adjusted p value: ", result$lr$plr.p.adj)
         if (!is.na(result$lr$plr.p.adj) && result$lr$plr.p.adj < alpha) {

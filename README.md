@@ -6,20 +6,28 @@
 
 Test metrics like sensitivity, specificity, the predictive values and the likelihood ratios are common ways to measure the performance of a diagnostic test. The goal of testCompareR is to make comparing the test metrics from two diagnostic tests with dichotomous outcomes easy. Really easy.
 
-We want clinical researchers to be able to quickly access the statistical methods with the best performance, without having to trawl through the literature or learn a new complicated package. `testCompareR` does all of that so you don't have to. 
+We want clinical researchers to be able to quickly access the statistical methods with the best performance, without having to trawl through the literature or learn how to operate a complicated R package. `testCompareR` does all of the hard work so you don't have to. 
 
 ## Installation
+
+`testCompareR` can be installed directly from CRAN using:
+
+``` r
+install.packages("testCompareR")
+```
 
 You can install the development version of testCompareR from [GitHub](https://github.com/) with:
 
 ``` r
-install.packages("devtools")
+if (!require("devtools", quietly = TRUE))
+    install.packages("devtools")
+
 devtools::install_github("Kajlinko/testCompareR")
 ```
 
 ## Examples
 
-`testCompareR` has two principal functions: `compareR()` and `interpretR`.
+`testCompareR` has two principal functions: `compareR()` and `interpretR()`.
 
 This example with simulated data demonstrates how they work. The data is provided as a data frame or matrix with three columns in the order test1, test2 and gold. It is sensible to code positive and negative results systematically, but real research can sometimes be messy. The `compareR()` function will try to take care of that for you.
 
@@ -37,11 +45,10 @@ df <- data.frame(test1, test2, gold)
 results <- compareR(df)
 
 # interpret the results (optional)
-interpretR <- results
+interpretR(results)
 ```
 
-With two function calls you can calculate the test metrics, including the confidence intervals with the best coverage, a compare the test metrics using the hypothesis tests with the best asymptotic performance. `interpretR()` even provides a plain English summary of what your results mean in the console. 
-
+With two function calls you can calculate the test metrics, including the confidence intervals with the best coverage, and compare the test metrics using the hypothesis tests with the best asymptotic performance. `interpretR()` even provides a plain English summary of what your results mean in the console. 
 
 ### Additional functions
 
@@ -73,17 +80,19 @@ dataframeR(70, 5, 11, 40, 11, 2, 3, 120)
 
 This data frame can be combined with other data frames to produce a master data frame ready for analysis.
 
-If you have any ideas about additional functionalities that you think should be added, please get in touch or, better still, make a pull request and see what you can do with the code.
+If you have any ideas about additional functionality that you think should be added, please get in touch or, better still, make a pull request and see what you can do with the code.
 
 ## Contributors
 
-This project was helped greatly by Marc Henrion [GitHub](https://github.com/gitMarcH/).
+The idea for this package was conceived and developed by Kyle Wilson.
+
+The project was helped greatly by Marc Henrion [GitHub](https://github.com/gitMarcH/).
 
 Additionally, the statistical methods underlying this package and the source code upon which it is based are provided by José Antonio Roldán Nofuentes. If you use the package, please consider referencing his paper when describing your statistical methods. The paper is available [here](https://doi.org/10.1186/s12874-020-00988-y).
 
 ## License
 
-This work is licensed under the General Public License v2.0 (1999). See LICENSE.md for more details.
+This work is licensed under the General Public License v3.0 (2007). See LICENSE.md for more details.
 
 ## References
 

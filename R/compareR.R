@@ -24,6 +24,9 @@
 #' positive and negative predictive values.
 #' @param plrnlr A Boolean value indicating whether output should include
 #' positive and negative likelihood ratios.
+#' @param conf.int A character string, either "contemporary" or "classic".
+#' Indicates whether function should use contemporary or classic statistical
+#' methods to calculate confidence intervals.
 #' @param test.names A vector of length two giving the names of the two
 #' different binary diagnostic tests. This argument is not relevant when testing
 #' a single binary diagnostic test.
@@ -36,7 +39,8 @@
 #' @details
 #' Confidence intervals for prevalence, diagnostic accuracies and predictive
 #' values are calculated using the interval for binomial proportions described
-#' by Yu et al. (2014).
+#' by Yu et al. (2014) by default. Setting conf.int = "classic" uses the
+#' Clopper-Pearson method.
 #' Confidence intervals for likelihood ratios are calculated using the methods
 #' recommended by Martín-Andrés and Álvarez-Hernández (2014).
 #' Hypothesis testing for diagnostic accuracies uses different methods depending
@@ -58,6 +62,9 @@
 #' @references
 #' Yu, Guo & Xu (2014) JSCS. 2014; 84:5,1022-1038
 #' \doi{10.1080/00949655.2012.738211}
+#'
+#' Clopper & Pearson (1934) Biometrika. 1934; 26,404-413
+#' \doi{10.2307/2331986}
 #'
 #' Martín Andrés & Álvarez Hernández (2014) Stat Comput. 2014; 24,65–75
 #' \doi{10.1007/s11222-012-9353-5}
@@ -94,6 +101,7 @@
 compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
                      cc = TRUE, dp = 1,
                      sesp = TRUE, ppvnpv = TRUE, plrnlr = TRUE,
+                     conf.int = "contemporary",
                      test.names = c("Test 1", "Test 2"), ...) {
   df <- recoder(df)
 
@@ -110,7 +118,7 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
 
   vals <- values.2test(df)
   cont <- disp.cont(vals, margins = margins)
-  prev <- matrixify(conf.prev(vals))
+  prev <- matrixify(conf.prev(vals, alpha = alpha,stats = conf.int), dp = dp+2)
 
   glob.p.vals <- vector("numeric", 0)
   p.vals <- vector("numeric", 0)
@@ -118,12 +126,11 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
   ## Sens & Spec
 
   if (sesp == TRUE) {
-    acc.est <- conf.acc(vals, alpha = alpha)
+    acc.est <- conf.acc(vals, alpha = alpha, stats = conf.int)
     acc.inf <- output.acc(vals)
 
     if (vals$n <= 100 && vals$prev <= 0.1) {
       p.vect <- c(sens = acc.inf$ind.p1, spec = acc.inf$ind.p2)
-      p.vals <- c(p.vals, p.vect)
       t.acc <- c(
         glob = "n < 100 and prevalence <= 10% - global test not used",
         sens = acc.inf$ind.t1, spec = acc.inf$ind.t2
@@ -134,7 +141,6 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
 
       if (vals$n <= 100 | vals$n >= 1000) {
         p.vect <- c(sens = acc.inf$ind.p1, spec = acc.inf$ind.p2)
-        p.vals <- c(p.vals, p.vect)
         t.acc <- c(
           glob = acc.inf$glob.t, sens = acc.inf$ind.t1,
           spec = acc.inf$ind.t2
@@ -142,14 +148,12 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
       } else {
         if (cc == TRUE) {
           p.vect <- c(sens = acc.inf$pval3a, spec = acc.inf$pval4a)
-          p.vals <- c(p.vals, p.vect)
           t.acc <- c(
             glob = acc.inf$glob.t,
             sens = acc.inf$Mcc1, spec = acc.inf$Mcc2
           )
         } else {
           p.vect <- c(sens = acc.inf$pval3b, spec = acc.inf$pval4b)
-          p.vals <- c(p.vals, p.vect)
           t.acc <- c(
             glob = acc.inf$glob.t,
             sens = acc.inf$M1, spec = acc.inf$M2
@@ -162,7 +166,7 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
   ## PPV & NPV
 
   if (ppvnpv == TRUE) {
-    pv.est <- conf.pv(vals, alpha = alpha)
+    pv.est <- conf.pv(vals, alpha = alpha, stats = conf.int)
     pv.inf <- output.pv(vals)
 
     glob.p.vect <- c(pv = pv.inf$glob.p)
@@ -188,7 +192,6 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
       name.vect <- names(glob.adj)[i]
 
       if ("acc" %in% name.vect) {
-        p.vect <- c(sens = acc.inf$ind.p1, spec = acc.inf$ind.p2)
         p.vals <- c(p.vals, p.vect)
       }
 

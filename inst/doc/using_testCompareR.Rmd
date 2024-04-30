@@ -26,19 +26,19 @@ Test metrics such as diagnostic accuracies, predictive values and likelihood rat
 
 Understanding and implementing methods described in the statistical literature is often far outside the comfort zone of clinicians, particularly those who are not routinely involved in academic research. 
 
-Here we demonstrate the implementation of the testCompareR package. 
+Here we demonstrate the implementation of the `testCompareR` package. 
 
 ## Generating data
 
-The package comes with a data set derived from the Cystic Fibrosis Patient Registry. The data was originally presented in the paper 'Comparing the predictive values of diagnostic tests: sample size and analysis for paired study designs' by Moskowitz and Pepe. Two binary prognostic factors are evaluated as predictors of severe infection in cystic fibrosis patients. 
+The package comes with a data set derived from the Coronary Artery Surgery Study (`cass`). This dataset looks at exercise stress testing and history of chest pain as two tests for coronary artery disease as determined by coronary angiography (the gold standard). 
 
 ```{r}
-dat <- cfpr
+dat <- cass
 ```
 
 ## Using the compareR function
 
-The testCompareR package is elegant in its simplicity. You can pass your data to the `compareR()` function as the only argument and the function outputs a list object containing the results of descriptive and inferential statistical tests.
+The `testCompareR` package is elegant in its simplicity. You can pass your data to the `compareR()` function as the only argument and the function outputs a list object containing the results of descriptive and inferential statistical tests.
 
 ```{r}
 results <- compareR(dat)
@@ -51,7 +51,7 @@ Individual results can be accessed via standard indexing.
 results$acc$accuracies # returns summary tables for diagnostic accuracies
 ```
 
-The list output of the `compareR()` function is useful should you need to manipulate any of the individual outputs in subsequent calculations. However, should you wish to see an interpretation of your results, you can pass the `compareR` output to the `interpretR()` function. This provides the same results in a more human-readable format.
+The list output of the `compareR()` function is useful should you need to manipulate any of the individual outputs in subsequent calculations. However, should you wish to see an interpretation of your results, you can pass the `compareR()` output to the `interpretR()` function. This provides the same results in a more human-readable format.
 
 ```{r}
 interpretR(results)
@@ -112,7 +112,7 @@ interpretR(result)
 
 ### Margins
 
-Contingency tables are included in the readout from `compareR()` or `interpretR`. Some people like to see the summed totals for columns and rows. If you're one of those people, then set `margins = TRUE`.
+Contingency tables are included in the readout from `compareR()` or `interpretR()`. Some people like to see the summed totals for columns and rows. If you're one of those people, then set `margins = TRUE`.
 
 ```{r}
 # simulate data
@@ -128,6 +128,7 @@ result <- compareR(df, margins = TRUE)
 # contingency tables have margins
 result$cont
 ```
+
 ### Multiple testing
 
 By default `compareR()` runs a minimum of three hypothesis tests and it can perform up to nine. This is accounted for using adjusted p-values according to the Holm method. If you'd prefer to use a different method, that's no problem. Just set the `multi_corr` parameter to any of the methods which are handled by the base R function `p.adjust()`.
