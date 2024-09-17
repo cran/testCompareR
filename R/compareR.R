@@ -108,7 +108,7 @@ compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
   ## CHECK ARGUMENTS
 
   if (sesp == FALSE && ppvnpv == FALSE && plrnlr == FALSE) {
-    stop("No tests selected.")
+    stop("No tests selected. At least one among sesp, ppvnpv and plrnlr should be declared TRUE.")
   }
   if (ncol(df) != 3) {
     stop("Please provide data as a data frame with three columns.")
