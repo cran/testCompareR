@@ -10,6 +10,12 @@
 #'
 #' @param df A data frame or matrix with 3 columns (test1, test2, gold).
 #' Flexible coding of positive and negative results permitted.
+#' @param test1 Either a vector of values for Test 1 (if df is NULL) or a string
+#' or integer value to be used for subsetting df.
+#' @param test2 Either a vector of values for Test 2 (if df is NULL) or a string
+#' or integer value to be used for subsetting df.
+#' @param gold Either a vector of values for the gold standard test (if df is
+#' NULL) or a string or integer value to be used for subsetting df.
 #' @param alpha An alpha value. Defaults to 0.05.
 #' @param margins A Boolean value indicating whether the contingency tables
 #' should have margins containing summed totals of rows and columns.
@@ -98,21 +104,23 @@
 #' @export
 #' @importFrom stats "p.adjust"
 
-compareR <- function(df, alpha = 0.05, margins = FALSE, multi_corr = "holm",
+compareR <- function(df = NULL,
+                     test1 = NULL, test2 = NULL, gold = NULL,
+                     alpha = 0.05, margins = FALSE, multi_corr = "holm",
                      cc = TRUE, dp = 1,
                      sesp = TRUE, ppvnpv = TRUE, plrnlr = TRUE,
                      conf.int = "contemporary",
                      test.names = c("Test 1", "Test 2"), ...) {
-  df <- recoder(df)
 
   ## CHECK ARGUMENTS
 
   if (sesp == FALSE && ppvnpv == FALSE && plrnlr == FALSE) {
     stop("No tests selected. At least one among sesp, ppvnpv and plrnlr should be declared TRUE.")
   }
-  if (ncol(df) != 3) {
-    stop("Please provide data as a data frame with three columns.")
-  }
+
+  df <- validatR(df = df, test1 = test1, test2 = test2, gold = gold)
+
+  df <- recoder(df)
 
   ## FUNCTION
 

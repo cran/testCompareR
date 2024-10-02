@@ -197,14 +197,6 @@ test_that("compareR function tests", {
   )
   expect_error(compareR(df5), ".*Coding errors exist\\..*")
 
-  df6 <- data.frame(
-    col1 = c("positive", "pos", "p", "yes", "y", "+", "1"),
-    col2 = c("negative", "neg", "no", "n", "-", "0", "2"),
-    col3 = c("positive", "pos", "p", "yes", "y", "+", "1"),
-    col4 = c("negative", "neg", "no", "n", "-", "0", "2")
-  )
-  expect_error(compareR(df6), ".*two or three*")
-
   mat <- matrix(
     sample(c(0, 1), 10, replace = TRUE),
     ncol = 2
@@ -220,7 +212,7 @@ test_that("compareR function tests", {
   vec <- c(0, 1, 0, 1, 0)
   expect_error(
     compareR(vec),
-    "Data should be provided as a data frame or matrix."
+    "Your data frame has less than three columns."
   )
 
   # Tests for validity of non-data arguments

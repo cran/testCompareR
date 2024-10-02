@@ -1566,3 +1566,143 @@ matrixify <- function(vals, rows = c("Row 1", "Row 2"),
     return(mat)
   }
 }
+
+get_significance <- function(global_p, specific_p) {
+  if (global_p >= 0.05) return("")
+  if (specific_p < 0.001) return("***")
+  if (specific_p < 0.01) return("**")
+  if (specific_p < 0.05) return("*")
+  return("")
+}
+
+create_table <- function(x) {
+
+  acc <- exists("acc", where = x)
+  pv <- exists("pv", where = x)
+  lr <- exists("lr", where = x)
+
+  test <- rep(c(x$other$test.names[1], x$other$test.names[2]), 2*(acc + pv + lr))
+  metric <- c()
+  if(acc) {metric <- c(metric, rep("Sensitivity", 2), rep("Specificity", 2))}
+  if(pv) {metric <- c(metric, "PPV", "PPV", "NPV", "NPV")}
+  if(lr) {metric <- c(metric, "PLR", "PLR", "NLR", "NLR")}
+
+  estimate <- c()
+  if(acc) {estimate <- c(estimate, x$acc$accuracies[[1]][1,1], x$acc$accuracies[[2]][1,1],
+                         x$acc$accuracies[[1]][2,1], x$acc$accuracies[[2]][2,1])}
+  if(pv) {estimate <- c(estimate, x$pv$predictive.values[[1]][1,1], x$pv$predictive.values[[2]][1,1],
+                        x$pv$predictive.values[[1]][2,1], x$pv$predictive.values[[2]][2,1])}
+  if(lr) {estimate <- c(estimate, x$lr$likelihood.ratios[[1]][1,1], x$lr$likelihood.ratios[[2]][1,1],
+                        x$lr$likelihood.ratios[[1]][2,1], x$lr$likelihood.ratios[[2]][2,1])}
+
+
+  lower_ci <- c()
+  if(acc) {lower_ci <- c(lower_ci, x$acc$accuracies[[1]][1,3], x$acc$accuracies[[2]][1,3],
+                  x$acc$accuracies[[1]][2,3], x$acc$accuracies[[2]][2,3])}
+  if(pv) {lower_ci <- c(lower_ci, x$pv$predictive.values[[1]][1,3], x$pv$predictive.values[[2]][1,3],
+                  x$pv$predictive.values[[1]][2,3], x$pv$predictive.values[[2]][2,3])}
+  if(lr) {lower_ci <- c(lower_ci, x$lr$likelihood.ratios[[1]][1,3], x$lr$likelihood.ratios[[2]][1,3],
+                  x$lr$likelihood.ratios[[1]][2,3], x$lr$likelihood.ratios[[2]][2,3])}
+
+  upper_ci <- c()
+  if(acc) {upper_ci <- c(upper_ci, x$acc$accuracies[[1]][1,4], x$acc$accuracies[[2]][1,4],
+                  x$acc$accuracies[[1]][2,4], x$acc$accuracies[[2]][2,4])}
+  if(pv) {upper_ci <- c(upper_ci, x$pv$predictive.values[[1]][1,4], x$pv$predictive.values[[2]][1,4],
+                  x$pv$predictive.values[[1]][2,4], x$pv$predictive.values[[2]][2,4])}
+  if(lr) {upper_ci <- c(upper_ci, x$lr$likelihood.ratios[[1]][1,4], x$lr$likelihood.ratios[[2]][1,4],
+                  x$lr$likelihood.ratios[[1]][2,4], x$lr$likelihood.ratios[[2]][2,4])}
+
+  p <- c()
+
+  if(acc) {
+
+    sens.p <- if(x$acc$accuracies[[1]][1,1] > x$acc$accuracies[[2]][1,1]) {
+      c(get_significance(x$acc$glob.p.adj, x$acc$sens.p.adj), "")
+    } else {
+      c("", get_significance(x$acc$glob.p.adj, x$acc$sens.p.adj))
+    }
+
+    spec.p <- if (x$acc$accuracies[[1]][2, 1] > x$acc$accuracies[[2]][2, 1]) {
+      c(get_significance(x$acc$glob.p.adj, x$acc$spec.p.adj), "")
+    } else {
+      c("", get_significance(x$acc$glob.p.adj, x$acc$spec.p.adj))
+    }
+
+    p <- c(p, sens.p, spec.p)
+
+  }
+
+  if(pv) {
+
+    ppv.p <- if (x$pv$predictive.values[[1]][1, 1] > x$pv$predictive.values[[2]][1, 1]) {
+      c(get_significance(x$pv$glob.p.adj, x$pv$ppv.p.adj), "")
+    } else {
+      c("", get_significance(x$pv$glob.p.adj, x$pv$ppv.p.adj))
+    }
+
+    npv.p <- if (x$pv$predictive.values[[1]][2, 1] > x$pv$predictive.values[[2]][2, 1]) {
+      c(get_significance(x$pv$glob.p.adj, x$pv$npv.p.adj), "")
+    } else {
+      c("", get_significance(x$pv$glob.p.adj, x$pv$npv.p.adj))
+    }
+
+    p <- c(p, ppv.p, npv.p)
+
+  }
+
+  if(lr) {
+
+    plr.p <- if (x$lr$likelihood.ratios[[1]][1, 1] > x$lr$likelihood.ratios[[2]][1, 1]) {
+      c(get_significance(x$lr$glob.p.adj, x$lr$plr.p.adj), "")
+    } else {
+      c("", get_significance(x$lr$glob.p.adj, x$lr$plr.p.adj))
+    }
+
+    nlr.p <- if (x$lr$likelihood.ratios[[1]][2, 1] > x$lr$likelihood.ratios[[2]][2, 1]) {
+      c(get_significance(x$lr$glob.p.adj, x$lr$nlr.p.adj), "")
+    } else {
+      c("", get_significance(x$lr$glob.p.adj, x$lr$nlr.p.adj))
+    }
+
+    p <- c(p, plr.p, nlr.p)
+
+  }
+
+  printable_df <- data.frame(test, metric, estimate, lower_ci, upper_ci, p)
+
+  return(printable_df)
+
+}
+
+check_coercible_to_df <- function(df) {
+  tryCatch({
+    result <- as.data.frame(df)
+    return(result)
+  }, error = function(e) {
+    stop("df is not coercible to data frame. Check data format.")
+  })
+}
+
+check_test_types <- function(test1, test2, gold) {
+  if (!(typeof(test1) == typeof(test2) & typeof(test1) == typeof(gold))) {
+    stop("test1, test2 and gold should all be of the same type, either character or integer.")
+  }
+
+  if (is.character(test1) && is.character(test2) && is.character(gold)) {
+    return(invisible(NULL))
+  }
+
+  # Check if all are numeric and coercible to integer
+  if (is.numeric(test1) && is.numeric(test2) && is.numeric(gold)) {
+    if (all(test1 == as.integer(test1)) &&
+        all(test2 == as.integer(test2)) &&
+        all(gold == as.integer(gold))) {
+      return(invisible(NULL))
+    } else {
+      stop("Numeric arguments are not coercible to integers. Cannot subset.")
+    }
+  }
+
+  # If none of the conditions are met
+  stop("Arguments must be either all characters or all numeric and coercible to integers.")
+}

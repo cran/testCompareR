@@ -379,182 +379,24 @@ You can pass your data to the <code>compareR()</code> function as the
 only argument and the function outputs a list object containing the
 results of descriptive and inferential statistical tests.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">compareR</span>(dat)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>results</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; $cont</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; $cont$`Gold standard vs. Test 1`</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;              Test 1</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;      Positive      502      106</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;      Negative       68      195</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; $cont$`Gold standard vs. Test 2`</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;              Test 2</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;      Positive      554       54</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;      Negative       66      197</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; $cont$`True Status: POS`</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;   Positive      473       29</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;   Negative       81       25</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; $cont$`True Status: NEG`</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt;   Positive       22       46</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt;   Negative       44      151</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; $prev</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt;            Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; Prevalence     69.8 1.6     66.7     72.8</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; $acc</span></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; $acc$accuracies</span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; $acc$accuracies$`Test 1`</span></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; Sensitivity     82.6 1.5     79.4     85.4</span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt; Specificity     74.1 2.7     68.6     79.1</span></span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt; $acc$accuracies$`Test 2`</span></span>
-<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co">#&gt; Sensitivity     91.1 1.2     88.6     93.1</span></span>
-<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="co">#&gt; Specificity     74.9 2.7     69.4     79.8</span></span>
-<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a><span class="co">#&gt; $acc$glob.test.stat</span></span>
-<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a><span class="co">#&gt; [1] 25.662</span></span>
-<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a><span class="co">#&gt; $acc$glob.p.value</span></span>
-<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a><span class="co">#&gt; [1] 2.676497e-06</span></span>
-<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a><span class="co">#&gt; $acc$glob.p.adj</span></span>
-<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a><span class="co">#&gt; [1] 6.971825e-06</span></span>
-<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a><span class="co">#&gt; $acc$sens.test.stat</span></span>
-<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a><span class="co">#&gt; [1] 23.64545</span></span>
-<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a><span class="co">#&gt; $acc$sens.p.value</span></span>
-<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a><span class="co">#&gt; [1] 1.158192e-06</span></span>
-<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a><span class="co">#&gt; $acc$sens.p.adj</span></span>
-<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a><span class="co">#&gt; [1] 6.949149e-06</span></span>
-<span id="cb3-63"><a href="#cb3-63" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-64"><a href="#cb3-64" tabindex="-1"></a><span class="co">#&gt; $acc$spec.test.stat</span></span>
-<span id="cb3-65"><a href="#cb3-65" tabindex="-1"></a><span class="co">#&gt; [1] 0.01111111</span></span>
-<span id="cb3-66"><a href="#cb3-66" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-67"><a href="#cb3-67" tabindex="-1"></a><span class="co">#&gt; $acc$spec.p.value</span></span>
-<span id="cb3-68"><a href="#cb3-68" tabindex="-1"></a><span class="co">#&gt; [1] 0.9160511</span></span>
-<span id="cb3-69"><a href="#cb3-69" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-70"><a href="#cb3-70" tabindex="-1"></a><span class="co">#&gt; $acc$spec.p.adj</span></span>
-<span id="cb3-71"><a href="#cb3-71" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb3-72"><a href="#cb3-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-73"><a href="#cb3-73" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-74"><a href="#cb3-74" tabindex="-1"></a><span class="co">#&gt; $pv</span></span>
-<span id="cb3-75"><a href="#cb3-75" tabindex="-1"></a><span class="co">#&gt; $pv$predictive.values</span></span>
-<span id="cb3-76"><a href="#cb3-76" tabindex="-1"></a><span class="co">#&gt; $pv$predictive.values$`Test 1`</span></span>
-<span id="cb3-77"><a href="#cb3-77" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-78"><a href="#cb3-78" tabindex="-1"></a><span class="co">#&gt; PPV     88.1 1.4     85.2     90.5</span></span>
-<span id="cb3-79"><a href="#cb3-79" tabindex="-1"></a><span class="co">#&gt; NPV     64.8 2.8     59.2     70.0</span></span>
-<span id="cb3-80"><a href="#cb3-80" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-81"><a href="#cb3-81" tabindex="-1"></a><span class="co">#&gt; $pv$predictive.values$`Test 2`</span></span>
-<span id="cb3-82"><a href="#cb3-82" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-83"><a href="#cb3-83" tabindex="-1"></a><span class="co">#&gt; PPV     89.4 1.2     86.7     91.6</span></span>
-<span id="cb3-84"><a href="#cb3-84" tabindex="-1"></a><span class="co">#&gt; NPV     78.5 2.6     73.0     83.2</span></span>
-<span id="cb3-85"><a href="#cb3-85" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-86"><a href="#cb3-86" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-87"><a href="#cb3-87" tabindex="-1"></a><span class="co">#&gt; $pv$glob.test.stat</span></span>
-<span id="cb3-88"><a href="#cb3-88" tabindex="-1"></a><span class="co">#&gt; [1] 25.94449</span></span>
-<span id="cb3-89"><a href="#cb3-89" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-90"><a href="#cb3-90" tabindex="-1"></a><span class="co">#&gt; $pv$glob.p.value</span></span>
-<span id="cb3-91"><a href="#cb3-91" tabindex="-1"></a><span class="co">#&gt; [1] 2.323942e-06</span></span>
-<span id="cb3-92"><a href="#cb3-92" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-93"><a href="#cb3-93" tabindex="-1"></a><span class="co">#&gt; $pv$glob.p.adj</span></span>
-<span id="cb3-94"><a href="#cb3-94" tabindex="-1"></a><span class="co">#&gt; [1] 6.971825e-06</span></span>
-<span id="cb3-95"><a href="#cb3-95" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-96"><a href="#cb3-96" tabindex="-1"></a><span class="co">#&gt; $pv$ppv.test.stat</span></span>
-<span id="cb3-97"><a href="#cb3-97" tabindex="-1"></a><span class="co">#&gt; [1] 0.8070579</span></span>
-<span id="cb3-98"><a href="#cb3-98" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-99"><a href="#cb3-99" tabindex="-1"></a><span class="co">#&gt; $pv$ppv.p.value</span></span>
-<span id="cb3-100"><a href="#cb3-100" tabindex="-1"></a><span class="co">#&gt; [1] 0.3689915</span></span>
-<span id="cb3-101"><a href="#cb3-101" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-102"><a href="#cb3-102" tabindex="-1"></a><span class="co">#&gt; $pv$ppv.p.adj</span></span>
-<span id="cb3-103"><a href="#cb3-103" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb3-104"><a href="#cb3-104" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-105"><a href="#cb3-105" tabindex="-1"></a><span class="co">#&gt; $pv$npv.test.stat</span></span>
-<span id="cb3-106"><a href="#cb3-106" tabindex="-1"></a><span class="co">#&gt; [1] 22.50225</span></span>
-<span id="cb3-107"><a href="#cb3-107" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-108"><a href="#cb3-108" tabindex="-1"></a><span class="co">#&gt; $pv$npv.p.value</span></span>
-<span id="cb3-109"><a href="#cb3-109" tabindex="-1"></a><span class="co">#&gt; [1] 2.098972e-06</span></span>
-<span id="cb3-110"><a href="#cb3-110" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-111"><a href="#cb3-111" tabindex="-1"></a><span class="co">#&gt; $pv$npv.p.adj</span></span>
-<span id="cb3-112"><a href="#cb3-112" tabindex="-1"></a><span class="co">#&gt; [1] 1.049486e-05</span></span>
-<span id="cb3-113"><a href="#cb3-113" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-114"><a href="#cb3-114" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-115"><a href="#cb3-115" tabindex="-1"></a><span class="co">#&gt; $lr</span></span>
-<span id="cb3-116"><a href="#cb3-116" tabindex="-1"></a><span class="co">#&gt; $lr$likelihood.ratios</span></span>
-<span id="cb3-117"><a href="#cb3-117" tabindex="-1"></a><span class="co">#&gt; $lr$likelihood.ratios$`Test 1`</span></span>
-<span id="cb3-118"><a href="#cb3-118" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-119"><a href="#cb3-119" tabindex="-1"></a><span class="co">#&gt; PLR      3.2 0.3      2.6      4.0</span></span>
-<span id="cb3-120"><a href="#cb3-120" tabindex="-1"></a><span class="co">#&gt; NLR      0.2 0.0      0.2      0.3</span></span>
-<span id="cb3-121"><a href="#cb3-121" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-122"><a href="#cb3-122" tabindex="-1"></a><span class="co">#&gt; $lr$likelihood.ratios$`Test 2`</span></span>
-<span id="cb3-123"><a href="#cb3-123" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb3-124"><a href="#cb3-124" tabindex="-1"></a><span class="co">#&gt; PLR      3.6 0.4      3.0      4.5</span></span>
-<span id="cb3-125"><a href="#cb3-125" tabindex="-1"></a><span class="co">#&gt; NLR      0.1 0.0      0.1      0.2</span></span>
-<span id="cb3-126"><a href="#cb3-126" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-127"><a href="#cb3-127" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-128"><a href="#cb3-128" tabindex="-1"></a><span class="co">#&gt; $lr$glob.test.stat</span></span>
-<span id="cb3-129"><a href="#cb3-129" tabindex="-1"></a><span class="co">#&gt; [1] 23.43805</span></span>
-<span id="cb3-130"><a href="#cb3-130" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-131"><a href="#cb3-131" tabindex="-1"></a><span class="co">#&gt; $lr$glob.p.value</span></span>
-<span id="cb3-132"><a href="#cb3-132" tabindex="-1"></a><span class="co">#&gt; [1] 8.137524e-06</span></span>
-<span id="cb3-133"><a href="#cb3-133" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-134"><a href="#cb3-134" tabindex="-1"></a><span class="co">#&gt; $lr$glob.p.adj</span></span>
-<span id="cb3-135"><a href="#cb3-135" tabindex="-1"></a><span class="co">#&gt; [1] 8.137524e-06</span></span>
-<span id="cb3-136"><a href="#cb3-136" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-137"><a href="#cb3-137" tabindex="-1"></a><span class="co">#&gt; $lr$plr.test.stat</span></span>
-<span id="cb3-138"><a href="#cb3-138" tabindex="-1"></a><span class="co">#&gt; [1] 0.8980246</span></span>
-<span id="cb3-139"><a href="#cb3-139" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-140"><a href="#cb3-140" tabindex="-1"></a><span class="co">#&gt; $lr$plr.p.value</span></span>
-<span id="cb3-141"><a href="#cb3-141" tabindex="-1"></a><span class="co">#&gt; [1] 0.3691725</span></span>
-<span id="cb3-142"><a href="#cb3-142" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-143"><a href="#cb3-143" tabindex="-1"></a><span class="co">#&gt; $lr$plr.p.adj</span></span>
-<span id="cb3-144"><a href="#cb3-144" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb3-145"><a href="#cb3-145" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-146"><a href="#cb3-146" tabindex="-1"></a><span class="co">#&gt; $lr$nlr.test.stat</span></span>
-<span id="cb3-147"><a href="#cb3-147" tabindex="-1"></a><span class="co">#&gt; [1] 4.662817</span></span>
-<span id="cb3-148"><a href="#cb3-148" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-149"><a href="#cb3-149" tabindex="-1"></a><span class="co">#&gt; $lr$nlr.p.value</span></span>
-<span id="cb3-150"><a href="#cb3-150" tabindex="-1"></a><span class="co">#&gt; [1] 3.119094e-06</span></span>
-<span id="cb3-151"><a href="#cb3-151" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-152"><a href="#cb3-152" tabindex="-1"></a><span class="co">#&gt; $lr$nlr.p.adj</span></span>
-<span id="cb3-153"><a href="#cb3-153" tabindex="-1"></a><span class="co">#&gt; [1] 1.247637e-05</span></span>
-<span id="cb3-154"><a href="#cb3-154" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-155"><a href="#cb3-155" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-156"><a href="#cb3-156" tabindex="-1"></a><span class="co">#&gt; $other</span></span>
-<span id="cb3-157"><a href="#cb3-157" tabindex="-1"></a><span class="co">#&gt; $other$alpha</span></span>
-<span id="cb3-158"><a href="#cb3-158" tabindex="-1"></a><span class="co">#&gt; [1] 0.05</span></span>
-<span id="cb3-159"><a href="#cb3-159" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-160"><a href="#cb3-160" tabindex="-1"></a><span class="co">#&gt; $other$equal</span></span>
-<span id="cb3-161"><a href="#cb3-161" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
-<span id="cb3-162"><a href="#cb3-162" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-163"><a href="#cb3-163" tabindex="-1"></a><span class="co">#&gt; $other$zeros</span></span>
-<span id="cb3-164"><a href="#cb3-164" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb3-165"><a href="#cb3-165" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-166"><a href="#cb3-166" tabindex="-1"></a><span class="co">#&gt; $other$Youden1</span></span>
-<span id="cb3-167"><a href="#cb3-167" tabindex="-1"></a><span class="co">#&gt; [1] 0.5671028</span></span>
-<span id="cb3-168"><a href="#cb3-168" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-169"><a href="#cb3-169" tabindex="-1"></a><span class="co">#&gt; $other$Youden2</span></span>
-<span id="cb3-170"><a href="#cb3-170" tabindex="-1"></a><span class="co">#&gt; [1] 0.6602336</span></span>
-<span id="cb3-171"><a href="#cb3-171" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-172"><a href="#cb3-172" tabindex="-1"></a><span class="co">#&gt; $other$test.names</span></span>
-<span id="cb3-173"><a href="#cb3-173" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Test 1&quot; &quot;Test 2&quot;</span></span>
-<span id="cb3-174"><a href="#cb3-174" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-175"><a href="#cb3-175" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-176"><a href="#cb3-176" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
-<span id="cb3-177"><a href="#cb3-177" tabindex="-1"></a><span class="co">#&gt; [1] &quot;compareR&quot;</span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>results</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;      test      metric estimate lower_ci upper_ci   p</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; 1  Test 1 Sensitivity     82.6     79.4     85.4    </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; 2  Test 2 Sensitivity     91.1     88.6     93.1 ***</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; 3  Test 1 Specificity     74.1     68.6     79.1    </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; 4  Test 2 Specificity     74.9     69.4     79.8    </span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; 5  Test 1         PPV     88.1     85.2     90.5    </span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; 6  Test 2         PPV     89.4     86.7     91.6    </span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; 7  Test 1         NPV     64.8     59.2     70.0    </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; 8  Test 2         NPV     78.5     73.0     83.2 ***</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; 9  Test 1         PLR      3.2      2.6      4.0    </span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 10 Test 2         PLR      3.6      3.0      4.5    </span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; 11 Test 1         NLR      0.2      0.2      0.3 ***</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; 12 Test 2         NLR      0.1      0.1      0.2    </span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39; &#39; 1</span></span></code></pre></div>
 <p>Individual results can be accessed via standard indexing.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>results<span class="sc">$</span>acc<span class="sc">$</span>accuracies <span class="co"># returns summary tables for diagnostic accuracies</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; $`Test 1`</span></span>
@@ -750,122 +592,124 @@ whatever you’d like, though.</p>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co"># test with alpha = 0.5</span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co"># all results are significant</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="fu">interpretR</span>(result)</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">:</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; Zeros exist in contingency table. Tests may return NA/NaN.</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; CONTINGENCY TABLES</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co"># all results are significant</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="fu">interpretR</span>(result)</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; </span><span class="al">WARNING</span><span class="co">:</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; Zeros exist in contingency table. Tests may return NA/NaN.</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; True Status - POSITIVE</span></span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt;   Positive      280       20</span></span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt;   Negative        0      100</span></span>
-<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt; True Status - NEGATIVE</span></span>
-<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
-<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;   Positive       55       10</span></span>
-<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;   Negative        0      135</span></span>
-<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt; Gold standard vs. Test 1</span></span>
-<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;              Test 1</span></span>
-<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
-<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co">#&gt;      Positive      300      100</span></span>
-<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co">#&gt;      Negative       65      135</span></span>
-<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="co">#&gt; Gold standard vs. Test 2</span></span>
-<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="co">#&gt;              Test 2</span></span>
-<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
-<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="co">#&gt;      Positive      280      120</span></span>
-<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="co">#&gt;      Negative       55      145</span></span>
-<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a><span class="co">#&gt; PREVALENCE (%)</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; CONTINGENCY TABLES</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; True Status - POSITIVE</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt;   Positive      280       20</span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt;   Negative        0      100</span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt; True Status - NEGATIVE</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt;   Positive       55       10</span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;   Negative        0      135</span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co">#&gt; Gold standard vs. Test 1</span></span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co">#&gt;              Test 1</span></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co">#&gt;      Positive      300      100</span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="co">#&gt;      Negative       65      135</span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="co">#&gt; Gold standard vs. Test 2</span></span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="co">#&gt;              Test 2</span></span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a><span class="co">#&gt;      Positive      280      120</span></span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a><span class="co">#&gt;      Negative       55      145</span></span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="co">#&gt;            Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a><span class="co">#&gt; Prevalence     66.7 1.9     65.4       68</span></span>
-<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a><span class="co">#&gt; DIAGNOSTIC ACCURACIES</span></span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a><span class="co">#&gt; PREVALENCE (%)</span></span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a><span class="co">#&gt;            Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="co">#&gt; Prevalence     66.7 1.9     65.4       68</span></span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="co">#&gt;  Test 1 (%)</span></span>
-<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co">#&gt; Sensitivity     75.0 2.2     73.5     76.4</span></span>
-<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="co">#&gt; Specificity     67.5 3.3     65.2     69.7</span></span>
-<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="co">#&gt;  Test 2 (%)</span></span>
-<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="co">#&gt; Sensitivity     70.0 2.3     68.4     71.5</span></span>
-<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="co">#&gt; Specificity     72.5 3.2     70.3     74.6</span></span>
-<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="co">#&gt; Global Null Hypothesis: Se1 = Se2 &amp; Sp1 = Sp2</span></span>
-<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="co">#&gt; Test statistic:  31.57895  Adjusted p value:  4.167158e-07 ***SIGNIFICANT***</span></span>
-<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="co">#&gt; Investigating individual differences</span></span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="co">#&gt; DIAGNOSTIC ACCURACIES</span></span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co">#&gt;  Test 1 (%)</span></span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="co">#&gt; Sensitivity     75.0 2.2     73.5     76.4</span></span>
+<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="co">#&gt; Specificity     67.5 3.3     65.2     69.7</span></span>
+<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="co">#&gt;  Test 2 (%)</span></span>
+<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="co">#&gt; Sensitivity     70.0 2.3     68.4     71.5</span></span>
+<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="co">#&gt; Specificity     72.5 3.2     70.3     74.6</span></span>
+<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a><span class="co">#&gt; Global Null Hypothesis: Se1 = Se2 &amp; Sp1 = Sp2</span></span>
+<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="co">#&gt; Test statistic:  31.57895  Adjusted p value:  4.167158e-07 ***SIGNIFICANT***</span></span>
 <span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 1: Se1 = Se2</span></span>
-<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="co">#&gt; Test statistic:  18.05  Adjusted p value:  0.0001291072 ***SIGNIFICANT***</span></span>
-<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 2: Sp1 = Sp2</span></span>
-<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="co">#&gt; Test statistic:  8.1  Adjusted p value:  0.02213263 ***SIGNIFICANT***</span></span>
-<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="co">#&gt; PREDICTIVE VALUES</span></span>
+<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="co">#&gt; Investigating individual differences</span></span>
+<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 1: Se1 = Se2</span></span>
+<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="co">#&gt; Test statistic:  18.05  Adjusted p value:  0.0001291072 ***SIGNIFICANT***</span></span>
+<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 2: Sp1 = Sp2</span></span>
+<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="co">#&gt; Test statistic:  8.1  Adjusted p value:  0.02213263 ***SIGNIFICANT***</span></span>
+<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="co">#&gt;  Test 1 (%)</span></span>
-<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="co">#&gt; PPV     82.2 2.0     80.8     83.5</span></span>
-<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="co">#&gt; NPV     57.4 3.2     55.3     59.6</span></span>
-<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a><span class="co">#&gt;  Test 2 (%)</span></span>
-<span id="cb7-87"><a href="#cb7-87" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-88"><a href="#cb7-88" tabindex="-1"></a><span class="co">#&gt; PPV     83.6 2.0     82.2     84.9</span></span>
-<span id="cb7-89"><a href="#cb7-89" tabindex="-1"></a><span class="co">#&gt; NPV     54.7 3.1     52.6     56.8</span></span>
-<span id="cb7-90"><a href="#cb7-90" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-91"><a href="#cb7-91" tabindex="-1"></a><span class="co">#&gt; Global Null Hypothesis: PPV1 = PPV2 &amp; NPV1 = NPV2</span></span>
-<span id="cb7-92"><a href="#cb7-92" tabindex="-1"></a><span class="co">#&gt; Test statistic:  26.92232  Adjusted p value:  2.850504e-06 ***SIGNIFICANT***</span></span>
-<span id="cb7-93"><a href="#cb7-93" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-94"><a href="#cb7-94" tabindex="-1"></a><span class="co">#&gt; Investigating individual differences</span></span>
+<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="co">#&gt; PREDICTIVE VALUES</span></span>
+<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="co">#&gt;  Test 1 (%)</span></span>
+<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a><span class="co">#&gt; PPV     82.2 2.0     80.8     83.5</span></span>
+<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a><span class="co">#&gt; NPV     57.4 3.2     55.3     59.6</span></span>
+<span id="cb7-87"><a href="#cb7-87" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-88"><a href="#cb7-88" tabindex="-1"></a><span class="co">#&gt;  Test 2 (%)</span></span>
+<span id="cb7-89"><a href="#cb7-89" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-90"><a href="#cb7-90" tabindex="-1"></a><span class="co">#&gt; PPV     83.6 2.0     82.2     84.9</span></span>
+<span id="cb7-91"><a href="#cb7-91" tabindex="-1"></a><span class="co">#&gt; NPV     54.7 3.1     52.6     56.8</span></span>
+<span id="cb7-92"><a href="#cb7-92" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-93"><a href="#cb7-93" tabindex="-1"></a><span class="co">#&gt; Global Null Hypothesis: PPV1 = PPV2 &amp; NPV1 = NPV2</span></span>
+<span id="cb7-94"><a href="#cb7-94" tabindex="-1"></a><span class="co">#&gt; Test statistic:  26.92232  Adjusted p value:  2.850504e-06 ***SIGNIFICANT***</span></span>
 <span id="cb7-95"><a href="#cb7-95" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-96"><a href="#cb7-96" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 1: PPV1 = PPV2</span></span>
-<span id="cb7-97"><a href="#cb7-97" tabindex="-1"></a><span class="co">#&gt; Test statistic:  3.171214  Adjusted p value:  0.1498935 ***SIGNIFICANT***</span></span>
-<span id="cb7-98"><a href="#cb7-98" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-99"><a href="#cb7-99" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 2: NPV1 = NPV2</span></span>
-<span id="cb7-100"><a href="#cb7-100" tabindex="-1"></a><span class="co">#&gt; Test statistic:  5.653882  Adjusted p value:  0.06966709 ***SIGNIFICANT***</span></span>
-<span id="cb7-101"><a href="#cb7-101" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-102"><a href="#cb7-102" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-103"><a href="#cb7-103" tabindex="-1"></a><span class="co">#&gt; LIKELIHOOD RATIOS</span></span>
+<span id="cb7-96"><a href="#cb7-96" tabindex="-1"></a><span class="co">#&gt; Investigating individual differences</span></span>
+<span id="cb7-97"><a href="#cb7-97" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-98"><a href="#cb7-98" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 1: PPV1 = PPV2</span></span>
+<span id="cb7-99"><a href="#cb7-99" tabindex="-1"></a><span class="co">#&gt; Test statistic:  3.171214  Adjusted p value:  0.1498935 ***SIGNIFICANT***</span></span>
+<span id="cb7-100"><a href="#cb7-100" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-101"><a href="#cb7-101" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 2: NPV1 = NPV2</span></span>
+<span id="cb7-102"><a href="#cb7-102" tabindex="-1"></a><span class="co">#&gt; Test statistic:  5.653882  Adjusted p value:  0.06966709 ***SIGNIFICANT***</span></span>
+<span id="cb7-103"><a href="#cb7-103" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb7-104"><a href="#cb7-104" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
-<span id="cb7-105"><a href="#cb7-105" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-106"><a href="#cb7-106" tabindex="-1"></a><span class="co">#&gt;  Test 1 (%)</span></span>
-<span id="cb7-107"><a href="#cb7-107" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-108"><a href="#cb7-108" tabindex="-1"></a><span class="co">#&gt; PLR      2.3 0.2      2.1      2.5</span></span>
-<span id="cb7-109"><a href="#cb7-109" tabindex="-1"></a><span class="co">#&gt; NLR      0.4 0.0      0.3      0.4</span></span>
-<span id="cb7-110"><a href="#cb7-110" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-111"><a href="#cb7-111" tabindex="-1"></a><span class="co">#&gt;  Test 2 (%)</span></span>
-<span id="cb7-112"><a href="#cb7-112" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb7-113"><a href="#cb7-113" tabindex="-1"></a><span class="co">#&gt; PLR      2.5 0.3      2.3      2.7</span></span>
-<span id="cb7-114"><a href="#cb7-114" tabindex="-1"></a><span class="co">#&gt; NLR      0.4 0.0      0.4      0.4</span></span>
-<span id="cb7-115"><a href="#cb7-115" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-116"><a href="#cb7-116" tabindex="-1"></a><span class="co">#&gt; Global Null Hypothesis: PLR1 = PLR2 &amp; NLR1 = NLR2</span></span>
-<span id="cb7-117"><a href="#cb7-117" tabindex="-1"></a><span class="co">#&gt; Test statistic:  23.37068  Adjusted p value:  8.416292e-06 ***SIGNIFICANT***</span></span>
-<span id="cb7-118"><a href="#cb7-118" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-119"><a href="#cb7-119" tabindex="-1"></a><span class="co">#&gt; Investigating individual differences</span></span>
+<span id="cb7-105"><a href="#cb7-105" tabindex="-1"></a><span class="co">#&gt; LIKELIHOOD RATIOS</span></span>
+<span id="cb7-106"><a href="#cb7-106" tabindex="-1"></a><span class="co">#&gt; --------------------------------------------------------------------------------</span></span>
+<span id="cb7-107"><a href="#cb7-107" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-108"><a href="#cb7-108" tabindex="-1"></a><span class="co">#&gt;  Test 1 (%)</span></span>
+<span id="cb7-109"><a href="#cb7-109" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-110"><a href="#cb7-110" tabindex="-1"></a><span class="co">#&gt; PLR      2.3 0.2      2.1      2.5</span></span>
+<span id="cb7-111"><a href="#cb7-111" tabindex="-1"></a><span class="co">#&gt; NLR      0.4 0.0      0.3      0.4</span></span>
+<span id="cb7-112"><a href="#cb7-112" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-113"><a href="#cb7-113" tabindex="-1"></a><span class="co">#&gt;  Test 2 (%)</span></span>
+<span id="cb7-114"><a href="#cb7-114" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb7-115"><a href="#cb7-115" tabindex="-1"></a><span class="co">#&gt; PLR      2.5 0.3      2.3      2.7</span></span>
+<span id="cb7-116"><a href="#cb7-116" tabindex="-1"></a><span class="co">#&gt; NLR      0.4 0.0      0.4      0.4</span></span>
+<span id="cb7-117"><a href="#cb7-117" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-118"><a href="#cb7-118" tabindex="-1"></a><span class="co">#&gt; Global Null Hypothesis: PLR1 = PLR2 &amp; NLR1 = NLR2</span></span>
+<span id="cb7-119"><a href="#cb7-119" tabindex="-1"></a><span class="co">#&gt; Test statistic:  23.37068  Adjusted p value:  8.416292e-06 ***SIGNIFICANT***</span></span>
 <span id="cb7-120"><a href="#cb7-120" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-121"><a href="#cb7-121" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 1: PLR1 = PLR2</span></span>
-<span id="cb7-122"><a href="#cb7-122" tabindex="-1"></a><span class="co">#&gt; Test statistic:  1.779904  Adjusted p value:  0.1498935 ***SIGNIFICANT***</span></span>
-<span id="cb7-123"><a href="#cb7-123" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb7-124"><a href="#cb7-124" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 2: NLR1 = NLR2</span></span>
-<span id="cb7-125"><a href="#cb7-125" tabindex="-1"></a><span class="co">#&gt; Test statistic:  2.375766  Adjusted p value:  0.06966709 ***SIGNIFICANT***</span></span></code></pre></div>
+<span id="cb7-121"><a href="#cb7-121" tabindex="-1"></a><span class="co">#&gt; Investigating individual differences</span></span>
+<span id="cb7-122"><a href="#cb7-122" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-123"><a href="#cb7-123" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 1: PLR1 = PLR2</span></span>
+<span id="cb7-124"><a href="#cb7-124" tabindex="-1"></a><span class="co">#&gt; Test statistic:  1.779904  Adjusted p value:  0.1498935 ***SIGNIFICANT***</span></span>
+<span id="cb7-125"><a href="#cb7-125" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb7-126"><a href="#cb7-126" tabindex="-1"></a><span class="co">#&gt; Null Hypothesis 2: NLR1 = NLR2</span></span>
+<span id="cb7-127"><a href="#cb7-127" tabindex="-1"></a><span class="co">#&gt; Test statistic:  2.375766  Adjusted p value:  0.06966709 ***SIGNIFICANT***</span></span></code></pre></div>
 </div>
 <div id="margins" class="section level3">
 <h3>Margins</h3>
@@ -882,36 +726,38 @@ people, then set <code>margins = TRUE</code>.</p>
 <span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co"># test with alpha = 0.5</span></span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">margins =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co"># contingency tables have margins</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>result<span class="sc">$</span>cont</span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt; $`Gold standard vs. Test 1`</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt;              Test 1</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative Sum</span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt;      Positive      300      100 400</span></span>
-<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt;      Negative       65      135 200</span></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt;      Sum           365      235 600</span></span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt; $`Gold standard vs. Test 2`</span></span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt;              Test 2</span></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative Sum</span></span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;      Positive      280      120 400</span></span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt;      Negative       55      145 200</span></span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt;      Sum           335      265 600</span></span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; $`True Status: POS`</span></span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative Sum</span></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt;   Positive      280       20 300</span></span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt;   Negative        0      100 100</span></span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt;   Sum           280      120 400</span></span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt; $`True Status: NEG`</span></span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative Sum</span></span>
-<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt;   Positive       55       10  65</span></span>
-<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt;   Negative        0      135 135</span></span>
-<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt;   Sum            55      145 200</span></span></code></pre></div>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co"># contingency tables have margins</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>result<span class="sc">$</span>cont</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; $`Gold standard vs. Test 1`</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="co">#&gt;              Test 1</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative Sum</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="co">#&gt;      Positive      300      100 400</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="co">#&gt;      Negative       65      135 200</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="co">#&gt;      Sum           365      235 600</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="co">#&gt; $`Gold standard vs. Test 2`</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#&gt;              Test 2</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative Sum</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt;      Positive      280      120 400</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt;      Negative       55      145 200</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt;      Sum           335      265 600</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="co">#&gt; $`True Status: POS`</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative Sum</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="co">#&gt;   Positive      280       20 300</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="co">#&gt;   Negative        0      100 100</span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="co">#&gt;   Sum           280      120 400</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="co">#&gt; $`True Status: NEG`</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative Sum</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="co">#&gt;   Positive       55       10  65</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="co">#&gt;   Negative        0      135 135</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="co">#&gt;   Sum            55      145 200</span></span></code></pre></div>
 </div>
 <div id="multiple-testing" class="section level3">
 <h3>Multiple testing</h3>
@@ -935,11 +781,15 @@ handled by the base R function <code>p.adjust()</code>.</p>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
 <span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co"># test with different multiple comparison methods</span></span>
 <span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>result1 <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">multi_corr =</span> <span class="st">&quot;holm&quot;</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>result2 <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">multi_corr =</span> <span class="st">&quot;bonf&quot;</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co"># the more restrictive Bonferroni method returns higher adjusted p values</span></span>
-<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>result1<span class="sc">$</span>pv<span class="sc">$</span>glob.p.adj <span class="sc">&lt;</span> result2<span class="sc">$</span>pv<span class="sc">$</span>glob.p.adj</span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>result2 <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">multi_corr =</span> <span class="st">&quot;bonf&quot;</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co"># the more restrictive Bonferroni method returns higher adjusted p values</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>result1<span class="sc">$</span>pv<span class="sc">$</span>glob.p.adj <span class="sc">&lt;</span> result2<span class="sc">$</span>pv<span class="sc">$</span>glob.p.adj</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 <div id="continuity-correction" class="section level3">
 <h3>Continuity correction</h3>
@@ -958,45 +808,47 @@ stick to the default parameters.</p>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
 <span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co"># run compareR without continuity correction</span></span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">cc =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>result<span class="sc">$</span>acc</span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; $accuracies</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; $accuracies$`Test 1`</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;             Estimate   SE Lower CI Upper CI</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; Sensitivity     75.0 15.3     41.5     93.4</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; Specificity     84.4  3.8     75.7     90.6</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; $accuracies$`Test 2`</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt;             Estimate   SE Lower CI Upper CI</span></span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; Sensitivity     12.5 11.7      1.4     46.2</span></span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt; Specificity     97.8  1.6     92.4     99.5</span></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; $glob.test.stat</span></span>
-<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; [1] &quot;n &lt; 100 and prevalence &lt;= 10% - global test not used&quot;</span></span>
-<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co">#&gt; $glob.p.value</span></span>
-<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
-<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a><span class="co">#&gt; $glob.p.adj</span></span>
-<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
-<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a><span class="co">#&gt; $sens.test.stat</span></span>
-<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a><span class="co">#&gt; [1] 13.33333</span></span>
-<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a><span class="co">#&gt; $sens.p.value</span></span>
-<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
-<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a><span class="co">#&gt; $sens.p.adj</span></span>
-<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
-<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a><span class="co">#&gt; $spec.test.stat</span></span>
-<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a><span class="co">#&gt; [1] 13.84615</span></span>
-<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a><span class="co">#&gt; $spec.p.value</span></span>
-<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
-<span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a><span class="co">#&gt; $spec.p.adj</span></span>
-<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>result<span class="sc">$</span>acc</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; $accuracies</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; $accuracies$`Test 1`</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;             Estimate   SE Lower CI Upper CI</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; Sensitivity     75.0 15.3     41.5     93.4</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; Specificity     84.4  3.8     75.7     90.6</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; $accuracies$`Test 2`</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="co">#&gt;             Estimate   SE Lower CI Upper CI</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="co">#&gt; Sensitivity     12.5 11.7      1.4     46.2</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#&gt; Specificity     97.8  1.6     92.4     99.5</span></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="co">#&gt; $glob.test.stat</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="co">#&gt; [1] &quot;n &lt; 100 and prevalence &lt;= 10% - global test not used&quot;</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="co">#&gt; $glob.p.value</span></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a><span class="co">#&gt; $glob.p.adj</span></span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="co">#&gt; $sens.test.stat</span></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a><span class="co">#&gt; [1] 13.33333</span></span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a><span class="co">#&gt; $sens.p.value</span></span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a><span class="co">#&gt; $sens.p.adj</span></span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a><span class="co">#&gt; $spec.test.stat</span></span>
+<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a><span class="co">#&gt; [1] 13.84615</span></span>
+<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a><span class="co">#&gt; $spec.p.value</span></span>
+<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span>
+<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb10-49"><a href="#cb10-49" tabindex="-1"></a><span class="co">#&gt; $spec.p.adj</span></span>
+<span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 </div>
 <div id="decimal-places" class="section level3">
 <h3>Decimal places</h3>
@@ -1014,18 +866,20 @@ for p values or test statistics.</p>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co"># test with different multiple comparison methods</span></span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">dp =</span> <span class="dv">3</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co"># the values in the summary tables are displayed to 3 decimal places</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>result<span class="sc">$</span>acc<span class="sc">$</span>accuracies</span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; $`Test 1`</span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;             Estimate    SE Lower CI Upper CI</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; Sensitivity   81.282 1.975   77.135   84.863</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; Specificity   67.619 3.229   61.046   73.605</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; $`Test 2`</span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt;             Estimate    SE Lower CI Upper CI</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; Sensitivity   72.051 2.272   67.415   76.289</span></span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; Specificity   75.714 2.959   69.520   81.052</span></span></code></pre></div>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co"># the values in the summary tables are displayed to 3 decimal places</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>result<span class="sc">$</span>acc<span class="sc">$</span>accuracies</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; $`Test 1`</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt;             Estimate    SE Lower CI Upper CI</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; Sensitivity   81.282 1.975   77.135   84.863</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; Specificity   67.619 3.229   61.046   73.605</span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; $`Test 2`</span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt;             Estimate    SE Lower CI Upper CI</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; Sensitivity   72.051 2.272   67.415   76.289</span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; Specificity   75.714 2.959   69.520   81.052</span></span></code></pre></div>
 </div>
 <div id="choosing-your-tests" class="section level3">
 <h3>Choosing your tests</h3>
@@ -1047,101 +901,16 @@ predictive values; <code>plrnlr</code> for likelihood ratios.</p>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(test1, test2, gold)</span>
 <span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co"># only display results for predictive values</span></span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">sesp =</span> <span class="cn">FALSE</span>, <span class="at">plrnlr =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>result</span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; $cont</span></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; $cont$`Gold standard vs. Test 1`</span></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt;              Test 1</span></span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt;      Positive      317       73</span></span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt;      Negative       68      142</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">test1 =</span> <span class="st">&quot;test1&quot;</span>, <span class="at">test2 =</span> <span class="st">&quot;test2&quot;</span>, <span class="at">gold =</span> <span class="st">&quot;gold&quot;</span>, </span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>                   <span class="at">sesp =</span> <span class="cn">FALSE</span>, <span class="at">plrnlr =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>result</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt;     test metric estimate lower_ci upper_ci   p</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt; 1 Test 1    PPV     82.3     78.2     85.8    </span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt; 2 Test 2    PPV     84.6     80.4     88.1   *</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; 3 Test 1    NPV     66.0     59.5     72.1 ***</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt; 4 Test 2    NPV     59.3     53.4     65.0    </span></span>
 <span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; $cont$`Gold standard vs. Test 2`</span></span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co">#&gt;              Test 2</span></span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="co">#&gt; Gold standard Positive Negative</span></span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="co">#&gt;      Positive      281      109</span></span>
-<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a><span class="co">#&gt;      Negative       51      159</span></span>
-<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a><span class="co">#&gt; $cont$`True Status: POS`</span></span>
-<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
-<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt;   Positive      281       36</span></span>
-<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt;   Negative        0       73</span></span>
-<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a><span class="co">#&gt; $cont$`True Status: NEG`</span></span>
-<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a><span class="co">#&gt;           Test 2</span></span>
-<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a><span class="co">#&gt; Test 1     Positive Negative</span></span>
-<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a><span class="co">#&gt;   Positive       51       17</span></span>
-<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a><span class="co">#&gt;   Negative        0      142</span></span>
-<span id="cb12-35"><a href="#cb12-35" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-36"><a href="#cb12-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-37"><a href="#cb12-37" tabindex="-1"></a><span class="co">#&gt; $prev</span></span>
-<span id="cb12-38"><a href="#cb12-38" tabindex="-1"></a><span class="co">#&gt;            Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb12-39"><a href="#cb12-39" tabindex="-1"></a><span class="co">#&gt; Prevalence       65 1.9     61.1     68.7</span></span>
-<span id="cb12-40"><a href="#cb12-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-41"><a href="#cb12-41" tabindex="-1"></a><span class="co">#&gt; $pv</span></span>
-<span id="cb12-42"><a href="#cb12-42" tabindex="-1"></a><span class="co">#&gt; $pv$predictive.values</span></span>
-<span id="cb12-43"><a href="#cb12-43" tabindex="-1"></a><span class="co">#&gt; $pv$predictive.values$`Test 1`</span></span>
-<span id="cb12-44"><a href="#cb12-44" tabindex="-1"></a><span class="co">#&gt;     Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb12-45"><a href="#cb12-45" tabindex="-1"></a><span class="co">#&gt; PPV     82.3 1.9     78.2     85.8</span></span>
-<span id="cb12-46"><a href="#cb12-46" tabindex="-1"></a><span class="co">#&gt; NPV     66.0 3.2     59.5     72.1</span></span>
-<span id="cb12-47"><a href="#cb12-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-48"><a href="#cb12-48" tabindex="-1"></a><span class="co">#&gt; $pv$predictive.values$`Test 2`</span></span>
-<span id="cb12-49"><a href="#cb12-49" tabindex="-1"></a><span class="co">#&gt;     Estimate SE Lower CI Upper CI</span></span>
-<span id="cb12-50"><a href="#cb12-50" tabindex="-1"></a><span class="co">#&gt; PPV     84.6  2     80.4     88.1</span></span>
-<span id="cb12-51"><a href="#cb12-51" tabindex="-1"></a><span class="co">#&gt; NPV     59.3  3     53.4     65.0</span></span>
-<span id="cb12-52"><a href="#cb12-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-53"><a href="#cb12-53" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-54"><a href="#cb12-54" tabindex="-1"></a><span class="co">#&gt; $pv$glob.test.stat</span></span>
-<span id="cb12-55"><a href="#cb12-55" tabindex="-1"></a><span class="co">#&gt; [1] 50.21468</span></span>
-<span id="cb12-56"><a href="#cb12-56" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-57"><a href="#cb12-57" tabindex="-1"></a><span class="co">#&gt; $pv$glob.p.value</span></span>
-<span id="cb12-58"><a href="#cb12-58" tabindex="-1"></a><span class="co">#&gt; [1] 1.247447e-11</span></span>
-<span id="cb12-59"><a href="#cb12-59" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-60"><a href="#cb12-60" tabindex="-1"></a><span class="co">#&gt; $pv$glob.p.adj</span></span>
-<span id="cb12-61"><a href="#cb12-61" tabindex="-1"></a><span class="co">#&gt; [1] 1.247447e-11</span></span>
-<span id="cb12-62"><a href="#cb12-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-63"><a href="#cb12-63" tabindex="-1"></a><span class="co">#&gt; $pv$ppv.test.stat</span></span>
-<span id="cb12-64"><a href="#cb12-64" tabindex="-1"></a><span class="co">#&gt; [1] 5.279658</span></span>
-<span id="cb12-65"><a href="#cb12-65" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-66"><a href="#cb12-66" tabindex="-1"></a><span class="co">#&gt; $pv$ppv.p.value</span></span>
-<span id="cb12-67"><a href="#cb12-67" tabindex="-1"></a><span class="co">#&gt; [1] 0.02157598</span></span>
-<span id="cb12-68"><a href="#cb12-68" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-69"><a href="#cb12-69" tabindex="-1"></a><span class="co">#&gt; $pv$ppv.p.adj</span></span>
-<span id="cb12-70"><a href="#cb12-70" tabindex="-1"></a><span class="co">#&gt; [1] 0.02157598</span></span>
-<span id="cb12-71"><a href="#cb12-71" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-72"><a href="#cb12-72" tabindex="-1"></a><span class="co">#&gt; $pv$npv.test.stat</span></span>
-<span id="cb12-73"><a href="#cb12-73" tabindex="-1"></a><span class="co">#&gt; [1] 15.86226</span></span>
-<span id="cb12-74"><a href="#cb12-74" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-75"><a href="#cb12-75" tabindex="-1"></a><span class="co">#&gt; $pv$npv.p.value</span></span>
-<span id="cb12-76"><a href="#cb12-76" tabindex="-1"></a><span class="co">#&gt; [1] 6.812387e-05</span></span>
-<span id="cb12-77"><a href="#cb12-77" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-78"><a href="#cb12-78" tabindex="-1"></a><span class="co">#&gt; $pv$npv.p.adj</span></span>
-<span id="cb12-79"><a href="#cb12-79" tabindex="-1"></a><span class="co">#&gt; [1] 0.0001362477</span></span>
-<span id="cb12-80"><a href="#cb12-80" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-81"><a href="#cb12-81" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-82"><a href="#cb12-82" tabindex="-1"></a><span class="co">#&gt; $other</span></span>
-<span id="cb12-83"><a href="#cb12-83" tabindex="-1"></a><span class="co">#&gt; $other$alpha</span></span>
-<span id="cb12-84"><a href="#cb12-84" tabindex="-1"></a><span class="co">#&gt; [1] 0.05</span></span>
-<span id="cb12-85"><a href="#cb12-85" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-86"><a href="#cb12-86" tabindex="-1"></a><span class="co">#&gt; $other$equal</span></span>
-<span id="cb12-87"><a href="#cb12-87" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
-<span id="cb12-88"><a href="#cb12-88" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-89"><a href="#cb12-89" tabindex="-1"></a><span class="co">#&gt; $other$zeros</span></span>
-<span id="cb12-90"><a href="#cb12-90" tabindex="-1"></a><span class="co">#&gt; [1] 2</span></span>
-<span id="cb12-91"><a href="#cb12-91" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-92"><a href="#cb12-92" tabindex="-1"></a><span class="co">#&gt; $other$Youden1</span></span>
-<span id="cb12-93"><a href="#cb12-93" tabindex="-1"></a><span class="co">#&gt; [1] 0.489011</span></span>
-<span id="cb12-94"><a href="#cb12-94" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-95"><a href="#cb12-95" tabindex="-1"></a><span class="co">#&gt; $other$Youden2</span></span>
-<span id="cb12-96"><a href="#cb12-96" tabindex="-1"></a><span class="co">#&gt; [1] 0.4776557</span></span>
-<span id="cb12-97"><a href="#cb12-97" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-98"><a href="#cb12-98" tabindex="-1"></a><span class="co">#&gt; $other$test.names</span></span>
-<span id="cb12-99"><a href="#cb12-99" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Test 1&quot; &quot;Test 2&quot;</span></span>
-<span id="cb12-100"><a href="#cb12-100" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-101"><a href="#cb12-101" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-102"><a href="#cb12-102" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
-<span id="cb12-103"><a href="#cb12-103" tabindex="-1"></a><span class="co">#&gt; [1] &quot;compareR&quot;</span></span></code></pre></div>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39; &#39; 1</span></span></code></pre></div>
 </div>
 <div id="test-names" class="section level3">
 <h3>Test names</h3>
@@ -1157,16 +926,18 @@ parameter. This parameter accepts a character vector of length 2.</p>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a></span>
 <span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co"># only display results for predictive values</span></span>
 <span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compareR</span>(df, <span class="at">test.names =</span> <span class="fu">c</span>(<span class="st">&quot;POCT&quot;</span>, <span class="st">&quot;Lab Blood&quot;</span>))</span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>result<span class="sc">$</span>acc<span class="sc">$</span>accuracies</span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; $POCT</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; Sensitivity     81.3 2.0     77.1     84.9</span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt; Specificity     67.6 3.2     61.0     73.6</span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; $`Lab Blood`</span></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; Sensitivity     72.1 2.3     67.4     76.3</span></span>
-<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co">#&gt; Specificity     75.7 3.0     69.5     81.1</span></span></code></pre></div>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; Warning in validatR(df = df, test1 = test1, test2 = test2, gold = gold): Using default columns. Check test 1 is first column, test 2 is second</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt;          column and gold standard is third column.</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>result<span class="sc">$</span>acc<span class="sc">$</span>accuracies</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt; $POCT</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; Sensitivity     81.3 2.0     77.1     84.9</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; Specificity     67.6 3.2     61.0     73.6</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co">#&gt; $`Lab Blood`</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co">#&gt;             Estimate  SE Lower CI Upper CI</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co">#&gt; Sensitivity     72.1 2.3     67.4     76.3</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="co">#&gt; Specificity     75.7 3.0     69.5     81.1</span></span></code></pre></div>
 </div>
 </div>
 <div id="conclusion" class="section level2">

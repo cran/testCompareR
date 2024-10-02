@@ -1,3 +1,12 @@
+# testCompareR 1.1.0
+
+* Added generic functions - summary(), print() and plot()
+* Fixed broken tests
+* Updated arguments to remove ambiguity
+* Added validatR function for checking new arguments
+
+---
+
 # testCompareR 1.0.4
 
 * Updated error message when sesp, ppvnpv and plrnlr are all FALSE for clarity

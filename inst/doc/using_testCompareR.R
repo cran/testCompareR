@@ -113,7 +113,8 @@ gold <- c(rep(1, 390), rep(0, 210))
 df <- data.frame(test1, test2, gold)
 
 # only display results for predictive values
-result <- compareR(df, sesp = FALSE, plrnlr = FALSE)
+result <- compareR(df, test1 = "test1", test2 = "test2", gold = "gold", 
+                   sesp = FALSE, plrnlr = FALSE)
 result
 
 ## -----------------------------------------------------------------------------

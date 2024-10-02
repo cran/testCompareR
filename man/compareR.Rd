@@ -5,7 +5,10 @@
 \title{compareR}
 \usage{
 compareR(
-  df,
+  df = NULL,
+  test1 = NULL,
+  test2 = NULL,
+  gold = NULL,
   alpha = 0.05,
   margins = FALSE,
   multi_corr = "holm",
@@ -22,6 +25,15 @@ compareR(
 \arguments{
 \item{df}{A data frame or matrix with 3 columns (test1, test2, gold).
 Flexible coding of positive and negative results permitted.}
+
+\item{test1}{Either a vector of values for Test 1 (if df is NULL) or a string
+or integer value to be used for subsetting df.}
+
+\item{test2}{Either a vector of values for Test 2 (if df is NULL) or a string
+or integer value to be used for subsetting df.}
+
+\item{gold}{Either a vector of values for the gold standard test (if df is
+NULL) or a string or integer value to be used for subsetting df.}
 
 \item{alpha}{An alpha value. Defaults to 0.05.}
 
