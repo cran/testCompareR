@@ -9,6 +9,7 @@ compareR(
   test1 = NULL,
   test2 = NULL,
   gold = NULL,
+  interpret = FALSE,
   alpha = 0.05,
   margins = FALSE,
   multi_corr = "holm",
@@ -34,6 +35,9 @@ or integer value to be used for subsetting df.}
 
 \item{gold}{Either a vector of values for the gold standard test (if df is
 NULL) or a string or integer value to be used for subsetting df.}
+
+\item{interpret}{If TRUE provides a verbose plain English interpretation of
+the output by calling interpretR(). Defaults to FALSE.}
 
 \item{alpha}{An alpha value. Defaults to 0.05.}
 

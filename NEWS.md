@@ -1,3 +1,11 @@
+# testCompareR 1.1.1
+
+* Added scaling to benchmarking
+* Call interpretR() from within compareR()
+* Added citation information
+
+---
+
 # testCompareR 1.1.0
 
 * Added generic functions - summary(), print() and plot()

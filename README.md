@@ -8,6 +8,8 @@ Test metrics like sensitivity, specificity, the predictive values and the likeli
 
 We want clinical researchers to be able to quickly access the statistical methods with the best performance, without having to trawl through the literature or learn how to operate a complicated R package. `testCompareR` does all of the hard work so you don't have to. 
 
+To cite the testCompareR paper use citation("testCompareR").
+
 ## Installation
 
 `testCompareR` can be installed directly from CRAN using:
@@ -84,7 +86,7 @@ If you have any ideas about additional functionality that you think should be ad
 
 ## Contributors
 
-The idea for this package was conceived and developed by Kyle Wilson.
+The idea for this package was conceived and developed by Kyle Wilson. 
 
 The project was helped greatly by Marc Henrion [GitHub](https://github.com/gitMarcH/).
 

@@ -2,7 +2,7 @@ Package: testCompareR
 Type: Package
 Title: Comparing Two Diagnostic Tests with Dichotomous Results using
         Paired Data
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Kyle J.", "Wilson", email = "kyle.jordan.wilson@googlemail.com", role = c("cre","aut"), comment = c(ORCID = "0000-0003-0151-7530")),
     person("Marc", "Henrion", email = "mhenrion@mlw.mw", role = "aut", comment = c(ORCID = "0000-0003-1242-839X")),
@@ -24,10 +24,10 @@ URL: https://kajlinko.github.io/testCompareR/,
         https://github.com/Kajlinko/testCompareR
 BugReports: https://github.com/Kajlinko/testCompareR/issues
 NeedsCompilation: no
-Packaged: 2024-10-02 12:53:13 UTC; kyle
+Packaged: 2024-11-20 13:16:16 UTC; kyle
 Author: Kyle J. Wilson [cre, aut] (<https://orcid.org/0000-0003-0151-7530>),
   Marc Henrion [aut] (<https://orcid.org/0000-0003-1242-839X>),
   José Antonio Roldán Nofuentes [aut]
     (<https://orcid.org/0000-0003-0251-5588>)
 Repository: CRAN
-Date/Publication: 2024-10-02 13:10:02 UTC
+Date/Publication: 2024-11-20 13:40:02 UTC

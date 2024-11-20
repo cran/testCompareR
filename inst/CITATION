@@ -1,0 +1,21 @@
+bibentry(
+  bibtype  = "Article",
+  title    = "testCompareR: an R package to compare two binary diagnostic tests
+  using paired data [version 3; peer review: 1 approved, 2 approved with
+  reservations]",
+  author   = c(
+    person(c("Kyle", "J"), "Wilson"),
+    person(c("José", "A"), "Roldán Nofuentes"),
+    person(c("Marc","YR"), "Henrion")),
+  journal  = "Wellcome Open Research",
+  year     = "2024",
+  volume   = "9",
+  number   = "351",
+  doi      = "10.12688/wellcomeopenres.22411.3",
+  textVersion = "Wilson KJ, Roldán-Nofuentes JA and Henrion MYR.
+  testCompareR: an R package to compare two binary diagnostic tests using paired
+  data [version 3; peer review: 1 approved, 2 approved with reservations].
+  Wellcome Open Res 2024, 9:351
+  (https://doi.org/10.12688/wellcomeopenres.22411.3)"
+)
+

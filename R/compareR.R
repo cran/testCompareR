@@ -16,6 +16,8 @@
 #' or integer value to be used for subsetting df.
 #' @param gold Either a vector of values for the gold standard test (if df is
 #' NULL) or a string or integer value to be used for subsetting df.
+#' @param interpret If TRUE provides a verbose plain English interpretation of
+#' the output by calling interpretR(). Defaults to FALSE.
 #' @param alpha An alpha value. Defaults to 0.05.
 #' @param margins A Boolean value indicating whether the contingency tables
 #' should have margins containing summed totals of rows and columns.
@@ -106,6 +108,7 @@
 
 compareR <- function(df = NULL,
                      test1 = NULL, test2 = NULL, gold = NULL,
+                     interpret = FALSE,
                      alpha = 0.05, margins = FALSE, multi_corr = "holm",
                      cc = TRUE, dp = 1,
                      sesp = TRUE, ppvnpv = TRUE, plrnlr = TRUE,
@@ -329,6 +332,10 @@ compareR <- function(df = NULL,
   }
 
   class(out) <- "compareR"
+
+  if(isTRUE(interpret)) {
+    interpretR(out)
+  }
 
   return(out)
 }
